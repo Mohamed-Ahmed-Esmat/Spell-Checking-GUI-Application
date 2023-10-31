@@ -1,0 +1,6 @@
+D:\Visual Studio 2022 projects\SpellChecking\SpellChecking\x64\Debug\SpellChecking.vcxproj.AssemblyReference.cache
+D:\Visual Studio 2022 projects\SpellChecking\SpellChecking\x64\Debug\SpellChecking.MyForm1.resources
+D:\Visual Studio 2022 projects\SpellChecking\SpellChecking\x64\Debug\SpellChecking.vcxproj.GenerateResource.cache
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\SpellChecking\x64\Debug\SpellChecking.vcxproj.AssemblyReference.cache
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\SpellChecking\x64\Debug\SpellChecking.MyForm1.resources
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\SpellChecking\x64\Debug\SpellChecking.vcxproj.GenerateResource.cache
