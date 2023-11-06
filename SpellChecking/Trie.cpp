@@ -7,6 +7,7 @@ using namespace std;
 Trie::Trie()
 {
 	root = new TrieNode();
+	//Testing
 }
 
 //Destructor
