@@ -115,6 +115,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MyForm1.cpp" />
+    <ClCompile Include="Trie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -127,6 +128,7 @@
     <ClInclude Include="MyForm1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="TrieHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm1.resx">
