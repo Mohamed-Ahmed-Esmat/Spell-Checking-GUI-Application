@@ -30,7 +30,7 @@ public:
 	TrieNode* root;
 	Trie();
 	~Trie();
-	void insert(string);
+	void insert(string word, TrieNode* root);
 	bool search(TrieNode* root, string key);
 	void printSuggestions(TrieNode*, string);
 };

@@ -1,5 +1,5 @@
 #include "MyForm1.h"
-
+#include "TrieHeader.h"
 using namespace System;
 using namespace System::Windows::Forms;
 

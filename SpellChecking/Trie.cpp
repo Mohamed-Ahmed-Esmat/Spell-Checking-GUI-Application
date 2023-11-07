@@ -7,6 +7,7 @@ using namespace std;
 Trie::Trie()
 {
 	root = new TrieNode();
+    //Testing
 }
 
 //Destructor
@@ -19,6 +20,18 @@ Trie::~Trie()
         	continue;
     }
     delete root;
+}
+
+void Trie::insert(string word, TrieNode* root)
+{
+    TrieNode* temp = root;
+    for (int i = 0; i < word.length(); i++)
+    {
+        if (temp->children[word[i]] == NULL)
+            temp->children[word[i]] = new TrieNode;
+        temp = temp->children[word[i]];
+    }
+    temp->isEnd = true;
 }
 
 //Function to search for a word in the Trie
