@@ -46,10 +46,10 @@ void Trie::deleteWord(string word) {
 }
 
 void Trie::insert(string word) {
-    return insert1(word, root);
+    return insert1(root, word);
 }
 
-void Trie::insert1(string word, TrieNode* root)
+void Trie::insert1(TrieNode* root, string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower);
     TrieNode* temp = root;
