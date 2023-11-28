@@ -10,10 +10,6 @@ Trie::Trie()
     root = new TrieNode();
 }
 
-Trie::TrieNode* Trie::getRoot()
-{
-    return root;
-}
 //Destructor
 Trie::~Trie()
 {
@@ -63,7 +59,7 @@ void Trie::insert1(TrieNode* root, string word)
 }
 
 
-bool Trie::search( string key)
+bool Trie::search(string key)
 {
     return search1(root, key);
 }
@@ -84,6 +80,7 @@ bool Trie::search1(TrieNode* root, string key)
         return true;
     }
     else {
+        cout << "Word not found\n";
         cout << "Suggestions: " << endl;
         printSuggestions(root, key);
         cout << endl;
