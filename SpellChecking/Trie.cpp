@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 #include "TrieHeader.h"
 using namespace std;
 
@@ -46,7 +45,7 @@ void Trie::insert(string word) {
 }
 
 void Trie::insert1(TrieNode* root, string word) {
-    transform(word.begin(), word.end(), word.begin(), ::tolower);
+    word = ConvertToLower(word);
 
     TrieNode* temp = root;
     bool wordExists = true; 
@@ -69,7 +68,6 @@ void Trie::insert1(TrieNode* root, string word) {
 }
 
 
-
 bool Trie::search(string key)
 {
     return search1(root, key);
@@ -78,7 +76,8 @@ bool Trie::search(string key)
 bool Trie::search1(TrieNode* root, string key)
 {
     cout << "Searching for " << key << endl;
-    transform(key.begin(), key.end(), key.begin(), ::tolower);
+    key=ConvertToLower(key);
+    
     for (int i = 0; i < key.length(); i++) {
         if (root->children[key[i]] == nullptr) {
             cout << "Word not found\n";
@@ -112,4 +111,16 @@ void Trie::printSuggestions(TrieNode* root, string res)
             res.pop_back();
         }
     }
+}
+
+string Trie::ConvertToLower(const std::string& str) {
+    std::string lowercaseStr = str;
+
+    for (char& c : lowercaseStr) {
+        if (c >= 'A' && c <= 'Z') {
+            c = c - 'A' + 'a';
+        }
+    }
+
+    return lowercaseStr;
 }
