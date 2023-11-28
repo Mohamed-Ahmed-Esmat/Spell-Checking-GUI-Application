@@ -30,11 +30,9 @@ private:
 public:
 	Trie();
 	~Trie();
-	TrieNode* getRoot();
 	void deleteNode(TrieNode* node);
 	void deleteWord(string word);
 	void insert(string word);
 	bool search(string key);
-	
 	void printSuggestions(TrieNode* root, string res);
 };
