@@ -47,17 +47,25 @@ void Trie::insert(string word) {
 
 void Trie::insert1(TrieNode* root, string word) {
     transform(word.begin(), word.end(), word.begin(), ::tolower);
-    if (search1(root, word)) {
-        cout << "Word already exists: " << word << endl;
-        return;
-    }
+
     TrieNode* temp = root;
+    bool wordExists = true; 
+
     for (int i = 0; i < word.length(); i++) {
-        if (temp->children[word[i]] == nullptr)
+        if (temp->children[word[i]] == nullptr) {
             temp->children[word[i]] = new TrieNode;
+            wordExists = false; 
+        }
         temp = temp->children[word[i]];
     }
-    temp->isEnd = true;
+
+    if (wordExists && temp->isEnd) {
+        cout << "Word already exists in the trie: " << word << endl;
+    }
+    else {
+        temp->isEnd = true;
+       
+    }
 }
 
 
