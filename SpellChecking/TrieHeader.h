@@ -28,13 +28,16 @@ private:
 	bool search1(TrieNode* root, string key);
 	string ConvertToLower(const std::string& str);
 	
+
 public:
 	Trie();
 	~Trie();
+	Trie(const Trie& other);
+	Trie& operator=(const Trie& other);
+	void copyNodes(TrieNode* destination, TrieNode* source);
 	void deleteNode(TrieNode* node);
 	void deleteWord(string word);
 	void insert(string word);
 	bool search(string key);
-	
 	void printSuggestions(TrieNode* root, string res);
 };
