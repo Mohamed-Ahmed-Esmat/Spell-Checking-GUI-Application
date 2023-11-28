@@ -10,7 +10,6 @@ Trie::Trie()
     root = new TrieNode();
 }
 
-
 //Destructor
 Trie::~Trie()
 {
@@ -60,6 +59,7 @@ void Trie::insert1(TrieNode* root, string word) {
     }
     temp->isEnd = true;
 }
+
 
 
 bool Trie::search(string key)
