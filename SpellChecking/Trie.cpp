@@ -65,6 +65,7 @@ bool Trie::search(TrieNode* root, string key)
     transform(key.begin(), key.end(), key.begin(), ::tolower);
     for (int i = 0; i < key.length(); i++) {
         if (root->children[key[i]] == nullptr) {
+            cout << "Word not found\n";
             return false;
         }
         root = root->children[key[i]];
@@ -74,7 +75,6 @@ bool Trie::search(TrieNode* root, string key)
         return true;
     }
     else {
-        cout << "Word not found\n";
         cout << "Suggestions: " << endl;
         printSuggestions(root, key);
         return false;
