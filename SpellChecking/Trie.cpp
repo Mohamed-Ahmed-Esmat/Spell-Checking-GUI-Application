@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "TrieHeader.h"
 using namespace std;
 
@@ -47,6 +48,7 @@ void Trie::deleteWord(string word) {
 
 void Trie::insert(string word, TrieNode* root)
 {
+    transform(word.begin(), word.end(), word.begin(), ::tolower);
     TrieNode* temp = root;
     for (int i = 0; i < word.length(); i++)
     {
@@ -60,14 +62,11 @@ void Trie::insert(string word, TrieNode* root)
 bool Trie::search(TrieNode* root, string key)
 {
     cout << "Searching for " << key << endl;
+    transform(key.begin(), key.end(), key.begin(), ::tolower);
     for (int i = 0; i < key.length(); i++) {
-
         if (root->children[key[i]] == nullptr) {
-
             return false;
         }
-
-
         root = root->children[key[i]];
     }
     if (root->isEnd == true) {
