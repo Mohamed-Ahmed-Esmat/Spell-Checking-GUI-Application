@@ -10,6 +10,10 @@ Trie::Trie()
     root = new TrieNode();
 }
 
+Trie::TrieNode* Trie::getRoot()
+{
+    return root;
+}
 //Destructor
 Trie::~Trie()
 {
@@ -45,18 +49,21 @@ void Trie::insert(string word) {
     return insert1(root, word);
 }
 
-void Trie::insert1(TrieNode* root, string word)
-{
+void Trie::insert1(TrieNode* root, string word) {
     transform(word.begin(), word.end(), word.begin(), ::tolower);
+    if (search1(root, word)) {
+        cout << "Word already exists: " << word << endl;
+        return;
+    }
     TrieNode* temp = root;
-    for (int i = 0; i < word.length(); i++)
-    {
+    for (int i = 0; i < word.length(); i++) {
         if (temp->children[word[i]] == nullptr)
             temp->children[word[i]] = new TrieNode;
         temp = temp->children[word[i]];
     }
     temp->isEnd = true;
 }
+
 
 
 bool Trie::search(string key)
