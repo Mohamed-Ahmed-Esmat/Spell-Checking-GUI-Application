@@ -35,7 +35,7 @@ void Trie::deleteWord(string word) {
     TrieNode* temp = root;
     if (temp == nullptr) { cout << "Trie is empty\n"; return; }
     char currentChar;
-    if (search(root, word)) {
+    if (search1(root, word)) {
         for (int i = 0; i < word.length(); i++) {
             currentChar = word[i];
             temp = temp->children[currentChar];
@@ -45,8 +45,11 @@ void Trie::deleteWord(string word) {
     else cout << "Word not available\n";
 }
 
+void Trie::insert(string word) {
+    return insert1(word, root);
+}
 
-void Trie::insert(string word, TrieNode* root)
+void Trie::insert1(string word, TrieNode* root)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower);
     TrieNode* temp = root;
@@ -59,7 +62,13 @@ void Trie::insert(string word, TrieNode* root)
     temp->isEnd = true;
 }
 
-bool Trie::search(TrieNode* root, string key)
+
+bool Trie::search( string key)
+{
+    return search1(root, key);
+}
+
+bool Trie::search1(TrieNode* root, string key)
 {
     cout << "Searching for " << key << endl;
     transform(key.begin(), key.end(), key.begin(), ::tolower);
@@ -77,6 +86,7 @@ bool Trie::search(TrieNode* root, string key)
     else {
         cout << "Suggestions: " << endl;
         printSuggestions(root, key);
+        cout << endl;
         return false;
     }
 }
