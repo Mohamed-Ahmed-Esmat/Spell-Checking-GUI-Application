@@ -32,6 +32,7 @@ void Trie::deleteNode(TrieNode* node)
 
 void Trie::deleteWord(string word) {
     TrieNode* temp = root;
+    if (temp == nullptr) { cout << "Trie is empty\n"; return; }
     char currentChar;
     if (search(root, word)) {
         for (int i = 0; i < word.length(); i++) {
@@ -55,25 +56,27 @@ void Trie::insert(string word, TrieNode* root)
     }
     temp->isEnd = true;
 }
-//Function to search for a word in the Trie
+
 bool Trie::search(TrieNode* root, string key)
 {
-
+    cout << "Searching for " << key << endl;
     for (int i = 0; i < key.length(); i++) {
 
-        // If current character is not present in the Trie-> make suggestions
         if (root->children[key[i]] == nullptr) {
-            //printSuggestions(root, key.substr(0, i));
+
             return false;
         }
-        //if present -> switch to the next character
+
 
         root = root->children[key[i]];
     }
     if (root->isEnd == true) {
+        cout << "Word found\n";
         return true;
     }
     else {
+        cout << "Word not found\n";
+        cout << "Suggestions: " << endl;
         printSuggestions(root, key);
         return false;
     }
