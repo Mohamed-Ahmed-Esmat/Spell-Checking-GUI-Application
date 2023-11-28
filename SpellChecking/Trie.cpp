@@ -31,6 +31,7 @@ void Trie::deleteWord(string word) {
     if (temp == nullptr) { cout << "Trie is empty\n"; return; }
     char currentChar;
     if (search1(root, word)) {
+        cout << "Delete "<< word;
         for (int i = 0; i < word.length(); i++) {
             currentChar = word[i];
             temp = temp->children[currentChar];
