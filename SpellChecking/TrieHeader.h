@@ -26,6 +26,7 @@ private:
 
 	void insert1( TrieNode* root, string word);
 	bool search1(TrieNode* root, string key);
+	string ConvertToLower(const std::string& str);
 	
 public:
 	Trie();
@@ -34,5 +35,6 @@ public:
 	void deleteWord(string word);
 	void insert(string word);
 	bool search(string key);
+	
 	void printSuggestions(TrieNode* root, string res);
 };
