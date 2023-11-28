@@ -15,6 +15,34 @@ Trie::~Trie()
     deleteNode(root);
     delete root;
 }
+// Copy Constructor
+Trie::Trie(const Trie& other) {
+    root = new TrieNode();
+    copyNodes(root, other.root);
+}
+//  function for deep copy of nodes
+void Trie::copyNodes(TrieNode* destination, TrieNode* source) {
+    if (source->isEnd) {
+        destination->isEnd = true;
+    }
+
+    for (int i = 0; i < maxSize; ++i) {
+        if (source->children[i] != nullptr) {
+            destination->children[i] = new TrieNode();
+            copyNodes(destination->children[i], source->children[i]);
+        }
+    }
+}
+
+// Overloading the assignment operator
+Trie& Trie::operator=(const Trie& other) {
+    if (this != &other) { 
+        this->~Trie();
+        root = new TrieNode();
+        copyNodes(root, other.root);
+    }
+    return *this;
+}
 
 void Trie::deleteNode(TrieNode* node)
 {
@@ -31,7 +59,7 @@ void Trie::deleteWord(string word) {
     if (temp == nullptr) { cout << "Trie is empty\n"; return; }
     char currentChar;
     if (search1(root, word)) {
-        cout << "Delete "<< word;
+        cout << "Delete " << word;
         for (int i = 0; i < word.length(); i++) {
             currentChar = word[i];
             temp = temp->children[currentChar];
@@ -49,12 +77,12 @@ void Trie::insert1(TrieNode* root, string word) {
     word = ConvertToLower(word);
 
     TrieNode* temp = root;
-    bool wordExists = true; 
+    bool wordExists = true;
 
     for (int i = 0; i < word.length(); i++) {
         if (temp->children[word[i]] == nullptr) {
             temp->children[word[i]] = new TrieNode;
-            wordExists = false; 
+            wordExists = false;
         }
         temp = temp->children[word[i]];
     }
@@ -64,7 +92,7 @@ void Trie::insert1(TrieNode* root, string word) {
     }
     else {
         temp->isEnd = true;
-       
+
     }
 }
 
@@ -77,8 +105,8 @@ bool Trie::search(string key)
 bool Trie::search1(TrieNode* root, string key)
 {
     cout << "Searching for " << key << endl;
-    key=ConvertToLower(key);
-    
+    key = ConvertToLower(key);
+
     for (int i = 0; i < key.length(); i++) {
         if (root->children[key[i]] == nullptr) {
             cout << "Word not found\n";
