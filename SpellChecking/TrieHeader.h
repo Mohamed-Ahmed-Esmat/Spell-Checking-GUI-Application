@@ -27,7 +27,7 @@ private:
 
 	void insert1( TrieNode* root, DataType word);
 	bool search1(TrieNode* root, DataType key);
-	string ConvertToLower(const std:: DataType& str);
+	DataType ConvertToLower(const DataType& str);
 	
 
 public:

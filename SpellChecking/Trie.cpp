@@ -27,7 +27,7 @@ Trie<DataType>::Trie(const Trie<DataType>& other) {
 
 //  function for deep copy of nodes
 template <typename DataType>
-void Trie::copyNodes(TrieNode* destination, TrieNode* source) {
+void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source) {
     if (source->isEnd) {
         destination->isEnd = true;
     }
@@ -156,7 +156,7 @@ void Trie<DataType>::printSuggestions(TrieNode* root, DataType res)
 }
 
 template <typename DataType>
-string Trie<DataType>::ConvertToLower(const std::DataType& str) {
+DataType Trie<DataType>::ConvertToLower(const DataType& str) {
     std::DataType lowercaseStr = str;
 
     for (char& c : lowercaseStr) {

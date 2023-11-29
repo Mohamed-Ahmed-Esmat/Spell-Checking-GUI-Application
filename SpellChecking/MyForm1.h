@@ -36,7 +36,7 @@ namespace SpellChecking {
 
 			// Insert words into the Trie
 			for (int j = 0; j < i; j++) {
-				trie.insert(words[j], trie.getRoot());
+				trie.insert(words[j]);
 			}
 		}
 
@@ -123,7 +123,7 @@ namespace SpellChecking {
 		System::String^ key = textBox1->Text;
 		std::string keyStd = msclr::interop::marshal_as<std::string>(key);
 
-		bool result = trie.search(trie.getRoot(), keyStd);
+		bool result = trie.search(keyStd);
 
 		if (result) {
 			
