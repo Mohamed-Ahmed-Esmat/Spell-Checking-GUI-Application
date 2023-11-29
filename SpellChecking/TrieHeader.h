@@ -4,6 +4,7 @@ using namespace std;
 
 const int maxSize = 256;
 
+template <typename DataType>
 class Trie
 {
 private:
@@ -24,9 +25,9 @@ private:
 
 	TrieNode* root;
 
-	void insert1( TrieNode* root, string word);
-	bool search1(TrieNode* root, string key);
-	string ConvertToLower(const std::string& str);
+	void insert1( TrieNode* root, DataType word);
+	bool search1(TrieNode* root, DataType key);
+	string ConvertToLower(const std:: DataType& str);
 	
 
 public:
@@ -36,8 +37,8 @@ public:
 	Trie& operator=(const Trie& other);
 	void copyNodes(TrieNode* destination, TrieNode* source);
 	void deleteNode(TrieNode* node);
-	void deleteWord(string word);
-	void insert(string word);
-	bool search(string key);
-	void printSuggestions(TrieNode* root, string res);
+	void deleteWord(DataType word);
+	void insert(DataType word);
+	bool search(DataType key);
+	void printSuggestions(TrieNode* root, DataType res);
 };
