@@ -269,4 +269,3 @@ void Trie<DataType>::getWord(TrieNode* root, DataType currentWord, DataType word
 
 template ostream& operator<<(ostream& out, const Trie<string>& trie);
 template class Trie<string>;
-template class Trie<int>;
