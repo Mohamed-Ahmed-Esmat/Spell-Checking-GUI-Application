@@ -3,7 +3,7 @@
 using namespace std;
 
 template <typename DataType>
-Trie<DataType>::Trie() : maxElements(maxSize), currentElements(0) {
+Trie<DataType>::Trie() : maxElements(100), currentElements(0) {
     root = new TrieNode();
 }
 
