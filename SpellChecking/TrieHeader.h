@@ -41,4 +41,6 @@ public:
 	void insert(DataType word);
 	bool search(DataType key);
 	void printSuggestions(TrieNode* root, DataType res);
+        void displayAllWords(const Trie& trie);
+        void displayWords(TrieNode* node, string currentWord);
 };
