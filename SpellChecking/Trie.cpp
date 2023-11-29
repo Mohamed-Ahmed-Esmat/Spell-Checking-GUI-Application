@@ -170,4 +170,27 @@ DataType Trie<DataType>::ConvertToLower(const DataType& str) {
 
 template class Trie<string>;
 
+template <typename DataType>
+void Trie<DataType>:: displayAllWords(const Trie& trie) {
+    TrieNode* root = trie.root;
+    string currentWord = "";
+    displayWords(root, currentWord);
+}
+
+void Trie<DataType>:: displayWords(TrieNode* node, string currentWord) {
+    if (node == nullptr) {
+        return;
+    }
+
+    if (node->isEnd) {
+        cout << currentWord << endl;
+    }
+
+    for (int i = 0; i < maxSize; ++i) {
+        if (node->children[i] != nullptr) {
+            string nextWord = currentWord + static_cast<char>(i);
+            displayWords(node->children[i], nextWord);
+        }
+    }
+}
 
