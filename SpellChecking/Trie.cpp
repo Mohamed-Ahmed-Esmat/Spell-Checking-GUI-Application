@@ -152,7 +152,7 @@ bool Trie<DataType>::search1(TrieNode* root, DataType key)
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions(TrieNode* root, DataType res)
+void Trie<DataType>::printSuggestions(TrieNode* root, DataType res) const
 {
     if (root->isEnd == true) {
         cout << res << " ";
@@ -232,8 +232,8 @@ Trie<DataType>& Trie<DataType>::operator+(const Trie<DataType>& other)
 }
 template <typename DataType>
 DataType* Trie<DataType>::getAllWords() const {
-    string* words = new string[maxElements];
-    string currentWord;
+    DataType* words = new DataType[maxElements];
+    DataType currentWord;
     int index = 0;
     getWord(root, currentWord, words, index);
     cout << endl;

@@ -47,7 +47,7 @@ public:
     void deleteWord(DataType word);
     void insert(DataType word);
     bool search(DataType key);
-    void printSuggestions(TrieNode* root, DataType res);
+    void printSuggestions(TrieNode* root, DataType res) const;
 
 };
 
