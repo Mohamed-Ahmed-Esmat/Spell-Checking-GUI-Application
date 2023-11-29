@@ -35,12 +35,15 @@ public:
 	~Trie();
 	Trie(const Trie& other);
 	Trie& operator=(const Trie& other);
+	
+	void displayWords(ostream& out, TrieNode* node, DataType currentWord) const;
+	void displayAllWords(ostream& out) const;
 	void copyNodes(TrieNode* destination, TrieNode* source);
 	void deleteNode(TrieNode* node);
 	void deleteWord(DataType word);
 	void insert(DataType word);
 	bool search(DataType key);
 	void printSuggestions(TrieNode* root, DataType res);
-        void displayAllWords(const Trie& trie);
-        void displayWords(TrieNode* node, string currentWord);
 };
+template <typename DataType>
+ostream& operator <<(ostream& out, const Trie<DataType> & trie);
