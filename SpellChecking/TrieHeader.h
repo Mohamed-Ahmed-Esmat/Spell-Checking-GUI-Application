@@ -8,42 +8,47 @@ template <typename DataType>
 class Trie
 {
 private:
-	class TrieNode
-	{
-	public:
-		TrieNode* children[maxSize];
-		bool isEnd;
+    class TrieNode
+    {
+    public:
+        TrieNode* children[maxSize];
+        bool isEnd;
 
-		// Constructor
-		TrieNode()
-		{
-			isEnd = false;
-			for (int i = 0; i < maxSize; i++)
-				children[i] = NULL;
-		}
-	};
+        // Constructor
+        TrieNode()
+        {
+            isEnd = false;
+            for (int i = 0; i < maxSize; i++)
+                children[i] = nullptr;
+        }
+    };
 
-	TrieNode* root;
-
-	void insert1(TrieNode* root, DataType word);
-	bool search1(TrieNode* root, DataType key);
-	DataType ConvertToLower(const DataType& str);
-
+    TrieNode* root;
+    int maxElements;
+    void insert1(TrieNode* root, DataType word);
+    bool search1(TrieNode* root, DataType key);
+    void getWord(TrieNode* root, DataType currentWord, DataType words[], int& index) const;
+    DataType ConvertToLower(const DataType& str);
 
 public:
-	Trie();
-	~Trie();
-	Trie(const Trie& other);
-	Trie& operator=(const Trie& other);
-	
-	void displayWords(ostream& out, TrieNode* node, DataType currentWord) const;
-	void displayAllWords(ostream& out) const;
-	void copyNodes(TrieNode* destination, TrieNode* source);
-	void deleteNode(TrieNode* node);
-	void deleteWord(DataType word);
-	void insert(DataType word);
-	bool search(DataType key);
-	void printSuggestions(TrieNode* root, DataType res);
+    Trie();
+    Trie(int maxElements);
+    ~Trie();
+    DataType* getAllWords() const;
+    Trie(const Trie& other);
+    bool isEmpty() const;
+    Trie& operator=(const Trie& other);
+    Trie& operator+(const Trie& other);
+    void displayWords(ostream& out, TrieNode* node, DataType currentWord) const;
+    void displayAllWords(ostream& out) const;
+    void copyNodes(TrieNode* destination, TrieNode* source);
+    void deleteNode(TrieNode* node);
+    void deleteWord(DataType word);
+    void insert(DataType word);
+    bool search(DataType key);
+    void printSuggestions(TrieNode* root, DataType res);
+
 };
+
 template <typename DataType>
-ostream& operator <<(ostream& out, const Trie<DataType> & trie);
+ostream& operator<<(ostream& out, const Trie<DataType>& trie);

@@ -6,7 +6,7 @@
 #include <msclr/marshal_cppstd.h> 
 
 namespace SpellChecking {
-	Trie trie;
+	Trie<string> trie;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;

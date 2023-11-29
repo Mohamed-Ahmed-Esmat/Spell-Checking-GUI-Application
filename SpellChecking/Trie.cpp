@@ -3,14 +3,19 @@
 using namespace std;
 
 
-//Constructor
 template <typename DataType>
-Trie<DataType>::Trie()
+Trie<DataType>::Trie() : maxElements(500)
 {
     root = new TrieNode();
 }
 
-//Destructor
+template<typename DataType>
+Trie<DataType>::Trie(int maxElements) : maxElements(maxElements)
+{
+    root = new TrieNode();
+}
+
+
 template <typename DataType>
 Trie<DataType>::~Trie()
 {
@@ -18,16 +23,16 @@ Trie<DataType>::~Trie()
     delete root;
 }
 
-// Copy Constructor
 template <typename DataType>
-Trie<DataType>::Trie(const Trie<DataType>& other) {
+Trie<DataType>::Trie(const Trie<DataType>& other)
+{
     root = new TrieNode();
     copyNodes(root, other.root);
 }
 
-//  function for deep copy of nodes
 template <typename DataType>
-void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source) {
+void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source)
+{
     if (source->isEnd) {
         destination->isEnd = true;
     }
@@ -40,9 +45,9 @@ void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source) {
     }
 }
 
-// Overloading the assignment
 template <typename DataType>
-Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other) {
+Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other)
+{
     if (this != &other) {
         this->~Trie();
         root = new TrieNode();
@@ -50,9 +55,6 @@ Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other) {
     }
     return *this;
 }
-
-
-
 
 template <typename DataType>
 void Trie<DataType>::deleteNode(TrieNode* node)
@@ -64,11 +66,24 @@ void Trie<DataType>::deleteNode(TrieNode* node)
         }
     }
 }
+template <typename DataType>
+bool Trie<DataType>::isEmpty() const {
+    for (int i = 0; i < maxSize; i++) {
+        if (root->children[i] != nullptr) {
+            return false;
+        }
+    }
+    return true;
+}
 
 template <typename DataType>
-void Trie<DataType>::deleteWord(DataType word) {
+void Trie<DataType>::deleteWord(DataType word)
+{
     TrieNode* temp = root;
-    if (temp == nullptr) { cout << "Trie is empty\n"; return; }
+    if (temp == nullptr) {
+        cout << "Trie is empty\n";
+        return;
+    }
     char currentChar;
     if (search1(root, word)) {
         cout << "Delete " << word;
@@ -78,16 +93,19 @@ void Trie<DataType>::deleteWord(DataType word) {
         }
         temp->isEnd = false;
     }
-    else cout << "Word not available\n";
+    else
+        cout << "Word not available\n";
 }
 
 template <typename DataType>
-void Trie<DataType>::insert(DataType word) {
+void Trie<DataType>::insert(DataType word)
+{
     return insert1(root, word);
 }
 
 template <typename DataType>
-void Trie<DataType>::insert1(TrieNode* root, DataType word) {
+void Trie<DataType>::insert1(TrieNode* root, DataType word)
+{
     word = ConvertToLower(word);
 
     TrieNode* temp = root;
@@ -106,7 +124,6 @@ void Trie<DataType>::insert1(TrieNode* root, DataType word) {
     }
     else {
         temp->isEnd = true;
-
     }
 }
 
@@ -159,7 +176,8 @@ void Trie<DataType>::printSuggestions(TrieNode* root, DataType res)
 }
 
 template <typename DataType>
-DataType Trie<DataType>::ConvertToLower(const DataType& str) {
+DataType Trie<DataType>::ConvertToLower(const DataType& str)
+{
     DataType lowercaseStr = str;
 
     for (char& c : lowercaseStr) {
@@ -172,20 +190,22 @@ DataType Trie<DataType>::ConvertToLower(const DataType& str) {
 }
 
 template <typename DataType>
-ostream& operator <<(ostream& out, const Trie<DataType>& trie) {
+ostream& operator<<(ostream& out, const Trie<DataType>& trie)
+{
     trie.displayAllWords(out);
     return out;
 }
 
 template <typename DataType>
-void Trie<DataType>::displayAllWords(ostream& out) const {
-    
+void Trie<DataType>::displayAllWords(ostream& out) const
+{
     DataType currentWord = "";
-    displayWords( out, root, currentWord);
+    displayWords(out, root, currentWord);
 }
 
 template <typename DataType>
-void Trie<DataType>::displayWords(ostream& out,TrieNode* node, DataType currentWord) const {
+void Trie<DataType>::displayWords(ostream& out, TrieNode* node, DataType currentWord) const
+{
     if (node == nullptr) {
         return;
     }
@@ -202,5 +222,51 @@ void Trie<DataType>::displayWords(ostream& out,TrieNode* node, DataType currentW
     }
 }
 
-template ostream& operator <<(ostream& out, const Trie<string>& trie);
+template <typename DataType>
+Trie<DataType>& Trie<DataType>::operator+(const Trie<DataType>& other)
+{
+    if (this == &other || other.isEmpty())
+        return *this;
+    DataType* words = other.getAllWords();
+    int length = 0;
+    while (words[length] != "") {
+        length++;
+    }
+    for (int i = 0; i < length; i++) {
+        insert(words[i]);
+    }
+    delete[] words;
+    return *this;
+}
+template <typename DataType>
+DataType* Trie<DataType>::getAllWords() const {
+    string* words = new string[maxElements];
+    cout << "Words stored in the trie:\n";
+    string currentWord;
+    int index = 0;
+    getWord(root, currentWord, words, index);
+    cout << endl;
+    return words;
+}
+
+template <typename DataType>
+void Trie<DataType>::getWord(TrieNode* root, DataType currentWord, DataType words[], int& index) const
+{
+    if (root->isEnd) {
+        cout << index << " " << currentWord << " " << endl;
+        words[index++] = currentWord;
+    }
+
+    for (int i = 0; i < 256; i++) {
+        if (root->children[i] != nullptr) {
+            getWord(root->children[i], currentWord + static_cast<char>(i), words, index);
+        }
+    }
+}
+
+
+
+
+template ostream& operator<<(ostream& out, const Trie<string>& trie);
 template class Trie<string>;
+template class Trie<int>;
