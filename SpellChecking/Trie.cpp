@@ -45,7 +45,7 @@ template <typename DataType>
 Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other) {
     if (this != &other) { 
         this->~Trie();
-        root = new Trie<DataType>TrieNode();
+        root = new Trie<DataType>::TrieNode();
         copyNodes(root, other.root);
     }
     return *this;
@@ -84,7 +84,7 @@ void Trie<DataType>::insert(DataType word) {
 }
 
 template <typename DataType>
-void Trie<DataType>::insert1(TrieNode* root, DataType word) {
+void Trie<DataType>::insert1(Trie<DataType>::TrieNode* root, DataType word) {
     word = ConvertToLower(word);
 
     Trie<DataType>::TrieNode* temp = root;
@@ -114,7 +114,7 @@ bool Trie<DataType>::search(DataType key)
 }
 
 template <typename DataType>
-bool Trie<DataType>::search1(TrieNode* root, DataType key)
+bool Trie<DataType>::search1(Trie<DataType>::TrieNode* root, DataType key)
 {
     cout << "Searching for " << key << endl;
     key = ConvertToLower(key);
@@ -140,7 +140,7 @@ bool Trie<DataType>::search1(TrieNode* root, DataType key)
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions(TrieNode* root, DataType res)
+void Trie<DataType>::printSuggestions(Trie<DataType>::TrieNode* root, DataType res)
 {
     if (root->isEnd == true) {
         cout << res << " ";
