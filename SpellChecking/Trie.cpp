@@ -7,7 +7,7 @@ using namespace std;
 template <typename DataType>
 Trie<DataType>::Trie()
 {
-    root = new Trie<DataType>::TrieNode();
+    root = new TrieNode();
 }
 
 //Destructor
@@ -21,13 +21,13 @@ Trie<DataType>::~Trie()
 // Copy Constructor
 template <typename DataType>
 Trie<DataType>::Trie(const Trie<DataType>& other) {
-    root = new Trie<DataType>::TrieNode();
+    root = new TrieNode();
     copyNodes(root, other.root);
 }
 
 //  function for deep copy of nodes
 template <typename DataType>
-void Trie::copyNodes(Trie<DataType>::TrieNode* destination, Trie<DataType>::TrieNode* source) {
+void Trie::copyNodes(TrieNode* destination, TrieNode* source) {
     if (source->isEnd) {
         destination->isEnd = true;
     }
@@ -45,14 +45,14 @@ template <typename DataType>
 Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other) {
     if (this != &other) { 
         this->~Trie();
-        root = new Trie<DataType>::TrieNode();
+        root = new TrieNode();
         copyNodes(root, other.root);
     }
     return *this;
 }
 
 template <typename DataType>
-void Trie<DataType>::deleteNode(Trie<DataType>::TrieNode* node)
+void Trie<DataType>::deleteNode(TrieNode* node)
 {
     for (int i = 0; i < maxSize; i++) {
         if (node->children[i] != nullptr) {
@@ -64,7 +64,7 @@ void Trie<DataType>::deleteNode(Trie<DataType>::TrieNode* node)
 
 template <typename DataType>
 void Trie<DataType>::deleteWord(DataType word) {
-    Trie<DataType>::TrieNode* temp = root;
+    TrieNode* temp = root;
     if (temp == nullptr) { cout << "Trie is empty\n"; return; }
     char currentChar;
     if (search1(root, word)) {
@@ -84,10 +84,10 @@ void Trie<DataType>::insert(DataType word) {
 }
 
 template <typename DataType>
-void Trie<DataType>::insert1(Trie<DataType>::TrieNode* root, DataType word) {
+void Trie<DataType>::insert1(TrieNode* root, DataType word) {
     word = ConvertToLower(word);
 
-    Trie<DataType>::TrieNode* temp = root;
+    TrieNode* temp = root;
     bool wordExists = true;
 
     for (int i = 0; i < word.length(); i++) {
@@ -114,7 +114,7 @@ bool Trie<DataType>::search(DataType key)
 }
 
 template <typename DataType>
-bool Trie<DataType>::search1(Trie<DataType>::TrieNode* root, DataType key)
+bool Trie<DataType>::search1(TrieNode* root, DataType key)
 {
     cout << "Searching for " << key << endl;
     key = ConvertToLower(key);
@@ -140,7 +140,7 @@ bool Trie<DataType>::search1(Trie<DataType>::TrieNode* root, DataType key)
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions(Trie<DataType>::TrieNode* root, DataType res)
+void Trie<DataType>::printSuggestions(TrieNode* root, DataType res)
 {
     if (root->isEnd == true) {
         cout << res << " ";
