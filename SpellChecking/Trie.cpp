@@ -4,24 +4,30 @@ using namespace std;
 
 
 //Constructor
-Trie::Trie()
+template <typename DataType>
+Trie<DataType>::Trie()
 {
-    root = new TrieNode();
+    root = new Trie<DataType>::TrieNode();
 }
 
 //Destructor
-Trie::~Trie()
+template <typename DataType>
+Trie<DataType>::~Trie()
 {
     deleteNode(root);
     delete root;
 }
+
 // Copy Constructor
-Trie::Trie(const Trie& other) {
-    root = new TrieNode();
+template <typename DataType>
+Trie<DataType>::Trie(const Trie<DataType>& other) {
+    root = new Trie<DataType>::TrieNode();
     copyNodes(root, other.root);
 }
+
 //  function for deep copy of nodes
-void Trie::copyNodes(TrieNode* destination, TrieNode* source) {
+template <typename DataType>
+void Trie::copyNodes(Trie<DataType>::TrieNode* destination, Trie<DataType>::TrieNode* source) {
     if (source->isEnd) {
         destination->isEnd = true;
     }
@@ -34,17 +40,19 @@ void Trie::copyNodes(TrieNode* destination, TrieNode* source) {
     }
 }
 
-// Overloading the assignment operator
-Trie& Trie::operator=(const Trie& other) {
+// Overloading the assignment
+template <typename DataType>
+Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other) {
     if (this != &other) { 
         this->~Trie();
-        root = new TrieNode();
+        root = new Trie<DataType>TrieNode();
         copyNodes(root, other.root);
     }
     return *this;
 }
 
-void Trie::deleteNode(TrieNode* node)
+template <typename DataType>
+void Trie<DataType>::deleteNode(Trie<DataType>::TrieNode* node)
 {
     for (int i = 0; i < maxSize; i++) {
         if (node->children[i] != nullptr) {
@@ -54,8 +62,9 @@ void Trie::deleteNode(TrieNode* node)
     }
 }
 
-void Trie::deleteWord(string word) {
-    TrieNode* temp = root;
+template <typename DataType>
+void Trie<DataType>::deleteWord(DataType word) {
+    Trie<DataType>::TrieNode* temp = root;
     if (temp == nullptr) { cout << "Trie is empty\n"; return; }
     char currentChar;
     if (search1(root, word)) {
@@ -69,14 +78,16 @@ void Trie::deleteWord(string word) {
     else cout << "Word not available\n";
 }
 
-void Trie::insert(string word) {
+template <typename DataType>
+void Trie<DataType>::insert(DataType word) {
     return insert1(root, word);
 }
 
-void Trie::insert1(TrieNode* root, string word) {
+template <typename DataType>
+void Trie<DataType>::insert1(TrieNode* root, DataType word) {
     word = ConvertToLower(word);
 
-    TrieNode* temp = root;
+    Trie<DataType>::TrieNode* temp = root;
     bool wordExists = true;
 
     for (int i = 0; i < word.length(); i++) {
@@ -96,13 +107,14 @@ void Trie::insert1(TrieNode* root, string word) {
     }
 }
 
-
-bool Trie::search(string key)
+template <typename DataType>
+bool Trie<DataType>::search(DataType key)
 {
     return search1(root, key);
 }
 
-bool Trie::search1(TrieNode* root, string key)
+template <typename DataType>
+bool Trie<DataType>::search1(TrieNode* root, DataType key)
 {
     cout << "Searching for " << key << endl;
     key = ConvertToLower(key);
@@ -127,7 +139,8 @@ bool Trie::search1(TrieNode* root, string key)
     }
 }
 
-void Trie::printSuggestions(TrieNode* root, string res)
+template <typename DataType>
+void Trie<DataType>::printSuggestions(TrieNode* root, DataType res)
 {
     if (root->isEnd == true) {
         cout << res << " ";
@@ -142,8 +155,9 @@ void Trie::printSuggestions(TrieNode* root, string res)
     }
 }
 
-string Trie::ConvertToLower(const std::string& str) {
-    std::string lowercaseStr = str;
+template <typename DataType>
+string Trie<DataType>::ConvertToLower(const std::DataType& str) {
+    std::DataType lowercaseStr = str;
 
     for (char& c : lowercaseStr) {
         if (c >= 'A' && c <= 'Z') {
