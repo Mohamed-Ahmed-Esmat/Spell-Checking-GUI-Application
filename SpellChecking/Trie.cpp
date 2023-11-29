@@ -86,7 +86,7 @@ void Trie<DataType>::deleteWord(DataType word)
     }
     char currentChar;
     if (search1(root, word)) {
-        cout << "Delete " << word;
+        cout << "Delete " << word<<endl;
         for (int i = 0; i < word.length(); i++) {
             currentChar = word[i];
             temp = temp->children[currentChar];
