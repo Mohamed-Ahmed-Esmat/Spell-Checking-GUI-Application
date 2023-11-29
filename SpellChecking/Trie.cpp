@@ -86,7 +86,7 @@ void Trie<DataType>::deleteWord(DataType word)
     }
     char currentChar;
     if (search1(root, word)) {
-        cout << "Delete " << word<<endl;
+        cout << "Delete " << word;
         for (int i = 0; i < word.length(); i++) {
             currentChar = word[i];
             temp = temp->children[currentChar];
@@ -241,7 +241,6 @@ Trie<DataType>& Trie<DataType>::operator+(const Trie<DataType>& other)
 template <typename DataType>
 DataType* Trie<DataType>::getAllWords() const {
     string* words = new string[maxElements];
-    cout << "Words stored in the trie:\n";
     string currentWord;
     int index = 0;
     getWord(root, currentWord, words, index);
@@ -253,7 +252,6 @@ template <typename DataType>
 void Trie<DataType>::getWord(TrieNode* root, DataType currentWord, DataType words[], int& index) const
 {
     if (root->isEnd) {
-        cout << index << " " << currentWord << " " << endl;
         words[index++] = currentWord;
     }
 
