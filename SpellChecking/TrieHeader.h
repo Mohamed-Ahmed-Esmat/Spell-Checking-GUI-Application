@@ -25,6 +25,7 @@ private:
 
     TrieNode* root;
     int maxElements;
+    int currentElements;
     void insert1(TrieNode* root, DataType word);
     bool search1(TrieNode* root, DataType key);
     void getWord(TrieNode* root, DataType currentWord, DataType words[], int& index) const;

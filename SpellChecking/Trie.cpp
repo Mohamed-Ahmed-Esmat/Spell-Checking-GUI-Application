@@ -2,37 +2,30 @@
 #include "TrieHeader.h"
 using namespace std;
 
-
 template <typename DataType>
-Trie<DataType>::Trie() : maxElements(500)
-{
+Trie<DataType>::Trie() : maxElements(100), currentElements(0) {
     root = new TrieNode();
 }
 
-template<typename DataType>
-Trie<DataType>::Trie(int maxElements) : maxElements(maxElements)
-{
+template <typename DataType>
+Trie<DataType>::Trie(int maxElements) : maxElements(maxElements), currentElements(0) {
     root = new TrieNode();
 }
 
-
 template <typename DataType>
-Trie<DataType>::~Trie()
-{
+Trie<DataType>::~Trie() {
     deleteNode(root);
     delete root;
 }
 
 template <typename DataType>
-Trie<DataType>::Trie(const Trie<DataType>& other)
-{
+Trie<DataType>::Trie(const Trie<DataType>& other) {
     root = new TrieNode();
     copyNodes(root, other.root);
 }
 
 template <typename DataType>
-void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source)
-{
+void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source) {
     if (source->isEnd) {
         destination->isEnd = true;
     }
@@ -46,8 +39,7 @@ void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source)
 }
 
 template <typename DataType>
-Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other)
-{
+Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other) {
     if (this != &other) {
         this->~Trie();
         root = new TrieNode();
@@ -57,8 +49,7 @@ Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other)
 }
 
 template <typename DataType>
-void Trie<DataType>::deleteNode(TrieNode* node)
-{
+void Trie<DataType>::deleteNode(TrieNode* node) {
     for (int i = 0; i < maxSize; i++) {
         if (node->children[i] != nullptr) {
             deleteNode(node->children[i]);
@@ -66,46 +57,46 @@ void Trie<DataType>::deleteNode(TrieNode* node)
         }
     }
 }
+
 template <typename DataType>
 bool Trie<DataType>::isEmpty() const {
-    for (int i = 0; i < maxSize; i++) {
-        if (root->children[i] != nullptr) {
-            return false;
-        }
-    }
-    return true;
+    return currentElements == 0;
 }
 
 template <typename DataType>
-void Trie<DataType>::deleteWord(DataType word)
-{
+void Trie<DataType>::deleteWord(DataType word) {
+
     TrieNode* temp = root;
-    if (temp == nullptr) {
+    if (isEmpty()) {
         cout << "Trie is empty\n";
         return;
     }
     char currentChar;
     if (search1(root, word)) {
-        cout << "Delete " << word;
+        cout << "Delete " << word << endl;
         for (int i = 0; i < word.length(); i++) {
             currentChar = word[i];
             temp = temp->children[currentChar];
         }
         temp->isEnd = false;
+        currentElements--;
     }
     else
         cout << "Word not available\n";
 }
 
 template <typename DataType>
-void Trie<DataType>::insert(DataType word)
-{
+void Trie<DataType>::insert(DataType word) {
+    if (currentElements == maxElements) {
+        cerr << "---Maximum number of elements reached. Can't insert----" << endl;
+        return;
+    }
+
     return insert1(root, word);
 }
 
 template <typename DataType>
-void Trie<DataType>::insert1(TrieNode* root, DataType word)
-{
+void Trie<DataType>::insert1(TrieNode* root, DataType word) {
     word = ConvertToLower(word);
 
     TrieNode* temp = root;
@@ -124,6 +115,7 @@ void Trie<DataType>::insert1(TrieNode* root, DataType word)
     }
     else {
         temp->isEnd = true;
+        currentElements++;
     }
 }
 
