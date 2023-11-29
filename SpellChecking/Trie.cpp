@@ -32,7 +32,7 @@ void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source) {
         destination->isEnd = true;
     }
 
-    for (int i = 0; i < maxSize; ++i) {
+    for (int i = 0; i < maxSize; i++) {
         if (source->children[i] != nullptr) {
             destination->children[i] = new TrieNode();
             copyNodes(destination->children[i], source->children[i]);
@@ -43,7 +43,7 @@ void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source) {
 // Overloading the assignment
 template <typename DataType>
 Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other) {
-    if (this != &other) { 
+    if (this != &other) {
         this->~Trie();
         root = new TrieNode();
         copyNodes(root, other.root);
@@ -157,7 +157,7 @@ void Trie<DataType>::printSuggestions(TrieNode* root, DataType res)
 
 template <typename DataType>
 DataType Trie<DataType>::ConvertToLower(const DataType& str) {
-    std::DataType lowercaseStr = str;
+   DataType lowercaseStr = str;
 
     for (char& c : lowercaseStr) {
         if (c >= 'A' && c <= 'Z') {
@@ -167,3 +167,7 @@ DataType Trie<DataType>::ConvertToLower(const DataType& str) {
 
     return lowercaseStr;
 }
+
+template class Trie<string>;
+
+
