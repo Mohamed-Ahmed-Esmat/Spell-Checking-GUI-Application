@@ -25,10 +25,10 @@ private:
 
 	TrieNode* root;
 
-	void insert1( TrieNode* root, DataType word);
+	void insert1(TrieNode* root, DataType word);
 	bool search1(TrieNode* root, DataType key);
 	DataType ConvertToLower(const DataType& str);
-	
+
 
 public:
 	Trie();
