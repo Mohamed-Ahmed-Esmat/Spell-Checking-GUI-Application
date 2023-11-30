@@ -33,7 +33,7 @@ public:
     Trie();
     Trie(int maxElements);
     ~Trie();
-    DataType* getAllWords() const;
+    DataType* getAllWords(int& index) const;
     Trie(const Trie& other);
     bool isEmpty() const;
     Trie& operator=(const Trie& other);

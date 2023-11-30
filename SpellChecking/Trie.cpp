@@ -207,22 +207,18 @@ Trie<DataType>& Trie<DataType>::operator+(const Trie<DataType>& other)
 {
     if (this == &other || other.isEmpty())
         return *this;
-    DataType* words = other.getAllWords();
-    int length = 0;
-    while (words[length] != "") {
-        length++;
-    }
-    for (int i = 0; i < length; i++) {
+    int index = 0;
+    DataType* words = other.getAllWords(index);
+    for (int i = 0; i < index; i++) {
         insert(words[i]);
     }
     delete[] words;
     return *this;
 }
 template <typename DataType>
-DataType* Trie<DataType>::getAllWords() const {
+DataType* Trie<DataType>::getAllWords(int& index) const {
     DataType* words = new DataType[maxElements];
     DataType currentWord;
-    int index = 0;
     getWord(root, currentWord, words, index);
     cout << endl;
     return words;
