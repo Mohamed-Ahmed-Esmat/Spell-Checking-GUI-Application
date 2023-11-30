@@ -26,8 +26,6 @@ private:
     TrieNode* root;
     int maxElements;
     int currentElements;
-    void insert1(TrieNode* root, DataType word);
-    bool search1(TrieNode* root, DataType key);
     void getWord(TrieNode* root, DataType currentWord, DataType words[], int& index) const;
     DataType ConvertToLower(const DataType& str);
 
@@ -47,7 +45,7 @@ public:
     void deleteWord(DataType word);
     void insert(DataType word);
     bool search(DataType key);
-    void printSuggestions(TrieNode* root, DataType res) const;
+    void printSuggestions(TrieNode* temp, DataType currentWord);
 
 };
 

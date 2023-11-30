@@ -72,7 +72,7 @@ void Trie<DataType>::deleteWord(DataType word) {
         return;
     }
     char currentChar;
-    if (search1(root, word)) {
+    if (search(word)) {
         cout << "Delete " << word << endl;
         for (int i = 0; i < word.length(); i++) {
             currentChar = word[i];
@@ -87,16 +87,11 @@ void Trie<DataType>::deleteWord(DataType word) {
 
 template <typename DataType>
 void Trie<DataType>::insert(DataType word) {
+
     if (currentElements == maxElements) {
         cerr << "---Maximum number of elements reached. Can't insert----" << endl;
         return;
     }
-
-    return insert1(root, word);
-}
-
-template <typename DataType>
-void Trie<DataType>::insert1(TrieNode* root, DataType word) {
     word = ConvertToLower(word);
 
     TrieNode* temp = root;
@@ -122,12 +117,6 @@ void Trie<DataType>::insert1(TrieNode* root, DataType word) {
 template <typename DataType>
 bool Trie<DataType>::search(DataType key)
 {
-    return search1(root, key);
-}
-
-template <typename DataType>
-bool Trie<DataType>::search1(TrieNode* root, DataType key)
-{
     cout << "Searching for " << key << endl;
     key = ConvertToLower(key);
 
@@ -152,17 +141,16 @@ bool Trie<DataType>::search1(TrieNode* root, DataType key)
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions(TrieNode* root, DataType res) const
+void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord)
 {
-    if (root->isEnd == true) {
-        cout << res << " ";
+    if (temp->isEnd == true) {
+        cout << currentWord << " ";
     }
 
-    for (int i = 0; i < 256; i++) {
-        if (root->children[i] != nullptr) {
-            res.push_back(i);
-            printSuggestions(root->children[i], res);
-            res.pop_back();
+    for (int i = 0; i < maxSize; i++) {
+        if (temp->children[i] != nullptr) {
+            DataType nextWord = currentWord + static_cast<char>(i);
+            printSuggestions(temp->children[i], nextWord);
         }
     }
 }
@@ -232,8 +220,8 @@ Trie<DataType>& Trie<DataType>::operator+(const Trie<DataType>& other)
 }
 template <typename DataType>
 DataType* Trie<DataType>::getAllWords() const {
-    DataType* words = new DataType[maxElements];
-    DataType currentWord;
+    string* words = new string[maxElements];
+    string currentWord;
     int index = 0;
     getWord(root, currentWord, words, index);
     cout << endl;
@@ -247,7 +235,7 @@ void Trie<DataType>::getWord(TrieNode* root, DataType currentWord, DataType word
         words[index++] = currentWord;
     }
 
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < maxSize; i++) {
         if (root->children[i] != nullptr) {
             getWord(root->children[i], currentWord + static_cast<char>(i), words, index);
         }
