@@ -87,7 +87,6 @@ void Trie<DataType>::deleteWord(DataType word) {
 
 template <typename DataType>
 void Trie<DataType>::insert(DataType word) {
-
     if (currentElements == maxElements) {
         cerr << "---Maximum number of elements reached. Can't insert----" << endl;
         return;
@@ -117,37 +116,38 @@ void Trie<DataType>::insert(DataType word) {
 template <typename DataType>
 bool Trie<DataType>::search(DataType key)
 {
+    TrieNode* temp = root;
     cout << "Searching for " << key << endl;
     key = ConvertToLower(key);
 
     for (int i = 0; i < key.length(); i++) {
-        if (root->children[key[i]] == nullptr) {
+        if (temp->children[key[i]] == nullptr) {
             cout << "Word not found\n";
             return false;
         }
-        root = root->children[key[i]];
+        temp = temp->children[key[i]];
     }
-    if (root->isEnd == true) {
+    if (temp->isEnd == true) {
         cout << "Word found\n";
         return true;
     }
     else {
         cout << "Word not found\n";
         cout << "Suggestions: " << endl;
-        printSuggestions(root, key);
+        printSuggestions(temp, key);
         cout << endl;
         return false;
     }
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord)
+void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) const
 {
     if (temp->isEnd == true) {
         cout << currentWord << " ";
     }
 
-    for (int i = 0; i < maxSize; i++) {
+    for (int i = 0; i < 256; i++) {
         if (temp->children[i] != nullptr) {
             DataType nextWord = currentWord + static_cast<char>(i);
             printSuggestions(temp->children[i], nextWord);
@@ -220,8 +220,8 @@ Trie<DataType>& Trie<DataType>::operator+(const Trie<DataType>& other)
 }
 template <typename DataType>
 DataType* Trie<DataType>::getAllWords() const {
-    string* words = new string[maxElements];
-    string currentWord;
+    DataType* words = new DataType[maxElements];
+    DataType currentWord;
     int index = 0;
     getWord(root, currentWord, words, index);
     cout << endl;
@@ -235,7 +235,7 @@ void Trie<DataType>::getWord(TrieNode* root, DataType currentWord, DataType word
         words[index++] = currentWord;
     }
 
-    for (int i = 0; i < maxSize; i++) {
+    for (int i = 0; i < 256; i++) {
         if (root->children[i] != nullptr) {
             getWord(root->children[i], currentWord + static_cast<char>(i), words, index);
         }
