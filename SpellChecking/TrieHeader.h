@@ -26,7 +26,7 @@ private:
     TrieNode* root;
     int maxElements;
     int currentElements;
-    void getWord(TrieNode* root, DataType currentWord, DataType words[], int& index) const;
+    void getWord(TrieNode* temp, DataType currentWord, DataType words[], int& index) const;
     DataType ConvertToLower(const DataType& str);
 
 public:

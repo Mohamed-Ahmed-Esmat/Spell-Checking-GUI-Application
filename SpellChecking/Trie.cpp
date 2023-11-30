@@ -225,15 +225,15 @@ DataType* Trie<DataType>::getAllWords(int& index) const {
 }
 
 template <typename DataType>
-void Trie<DataType>::getWord(TrieNode* root, DataType currentWord, DataType words[], int& index) const
+void Trie<DataType>::getWord(TrieNode* temp, DataType currentWord, DataType words[], int& index) const
 {
-    if (root->isEnd) {
+    if (temp->isEnd) {
         words[index++] = currentWord;
     }
 
     for (int i = 0; i < 256; i++) {
-        if (root->children[i] != nullptr) {
-            getWord(root->children[i], currentWord + static_cast<char>(i), words, index);
+        if (temp->children[i] != nullptr) {
+            getWord(temp->children[i], currentWord + static_cast<char>(i), words, index);
         }
     }
 }
