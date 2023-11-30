@@ -147,7 +147,7 @@ void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) cons
         cout << currentWord << " ";
     }
 
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < maxSize; i++) {
         if (temp->children[i] != nullptr) {
             DataType nextWord = currentWord + static_cast<char>(i);
             printSuggestions(temp->children[i], nextWord);
@@ -231,7 +231,7 @@ void Trie<DataType>::getWord(TrieNode* temp, DataType currentWord, DataType word
         words[index++] = currentWord;
     }
 
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < maxSize; i++) {
         if (temp->children[i] != nullptr) {
             getWord(temp->children[i], currentWord + static_cast<char>(i), words, index);
         }
