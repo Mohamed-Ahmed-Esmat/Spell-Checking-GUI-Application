@@ -6,7 +6,8 @@
 #include <msclr/marshal_cppstd.h> 
 
 namespace SpellChecking {
-	Trie<string> trie;
+	const int arraySize = 500;
+	Trie<string> trie(arraySize);
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -23,7 +24,7 @@ namespace SpellChecking {
 		MyForm(void)
 		{
 			InitializeComponent();
-			const int arraySize = 500;
+			
 
 			std::ifstream input("D:/Visual Studio 2022 projects/SpellCheckingtest/file.txt");
 			string* words = new string[arraySize];
