@@ -1,0 +1,6 @@
+D:\Visual Studio 2022 projects\Test3 GUI\Test3 GUI\x64\Debug\Test3 GUI.vcxproj.AssemblyReference.cache
+D:\Visual Studio 2022 projects\Test3 GUI\Test3 GUI\x64\Debug\Test3GUI.MyForm.resources
+D:\Visual Studio 2022 projects\Test3 GUI\Test3 GUI\x64\Debug\Test3 GUI.vcxproj.GenerateResource.cache
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\Test3 GUI\x64\Debug\Test3 GUI.vcxproj.AssemblyReference.cache
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\Test3 GUI\x64\Debug\Test3GUI.MyForm.resources
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\Test3 GUI\x64\Debug\Test3 GUI.vcxproj.GenerateResource.cache
