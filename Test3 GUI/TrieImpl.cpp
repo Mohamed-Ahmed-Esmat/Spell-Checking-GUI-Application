@@ -3,14 +3,10 @@
 using namespace std;
 
 template <typename DataType>
-Trie<DataType>::Trie() : maxElements(100), currentElements(0) {
+Trie<DataType>::Trie() :  currentElements(0) {
     root = new TrieNode();
 }
 
-template <typename DataType>
-Trie<DataType>::Trie(int maxElements) : maxElements(maxElements), currentElements(0) {
-    root = new TrieNode();
-}
 
 template <typename DataType>
 Trie<DataType>::~Trie() {
@@ -234,7 +230,7 @@ Trie<DataType>& Trie<DataType>::operator+(const Trie<DataType>& other)
 
 template <typename DataType>
 DataType* Trie<DataType>::getAllWords(int& index) const {
-    DataType* words = new DataType[maxElements];
+    DataType* words = new DataType[currentElements];
     DataType currentWord;
     getWord(root, currentWord, words, index);
     cout << endl;
