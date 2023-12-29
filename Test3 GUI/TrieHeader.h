@@ -3,7 +3,6 @@
 using namespace std;
 
 const int numChildren = 26;
-const int maxSize = 256;
 
 template <typename DataType>
 class Trie
