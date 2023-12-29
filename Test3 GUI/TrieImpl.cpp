@@ -30,7 +30,7 @@ void Trie<DataType>::copyNodes(TrieNode* destination, TrieNode* source) {
         destination->isEnd = true;
     }
 
-    for (int i = 0; i < maxSize; i++) {
+    for (int i = 0; i < numChildren; i++) {
         if (source->children[i] != nullptr) {
             destination->children[i] = new TrieNode();
             copyNodes(destination->children[i], source->children[i]);
@@ -50,7 +50,7 @@ Trie<DataType>& Trie<DataType>::operator=(const Trie<DataType>& other) {
 
 template <typename DataType>
 void Trie<DataType>::deleteNode(TrieNode* node) {
-    for (int i = 0; i < maxSize; i++) {
+    for (int i = 0; i < numChildren; i++) {
         if (node->children[i] != nullptr) {
             deleteNode(node->children[i]);
             delete node->children[i];
@@ -63,6 +63,7 @@ bool Trie<DataType>::isEmpty() const {
     return currentElements == 0;
 }
 
+
 template <typename DataType>
 void Trie<DataType>::deleteWord(DataType word) {
 
@@ -71,47 +72,60 @@ void Trie<DataType>::deleteWord(DataType word) {
         cout << "Trie is empty\n";
         return;
     }
-    char currentChar;
-    if (search(word)) {
-        cout << "Delete " << word << endl;
-        for (int i = 0; i < word.length(); i++) {
-            currentChar = word[i];
-            temp = temp->children[currentChar];
-        }
-        temp->isEnd = false;
-        currentElements--;
-    }
-    else
+
+    if (!search(word)) {
         cout << "Word not available\n";
+        return;
+    }
+
+    cout << "Delete " << word << endl;
+
+    for (char c : word) {
+        int index = c - 'a'; // Calculate index based on the character 'a'
+
+        if (temp->children[index] == nullptr) {
+            cout << "Word not found in the Trie\n";
+            return;
+        }
+        temp = temp->children[index]; // Move to the next node
+    }
+
+    temp->isEnd = false; // Mark the last node as not the end of the word
+    currentElements--;   // Decrement the count of elements in the Trie
+
 }
 
 template <typename DataType>
 void Trie<DataType>::insert(DataType word) {
-    if (currentElements == maxElements) {
-        cerr << "---Maximum number of elements reached. Can't insert----" << endl;
+    if (word.empty()) {
+        cout << "Empty word cannot be inserted into the Trie\n";
         return;
     }
+
     word = ConvertToLower(word);
 
     TrieNode* temp = root;
-    bool wordExists = true;
 
-    for (int i = 0; i < word.length(); i++) {
-        if (temp->children[word[i]] == nullptr) {
-            temp->children[word[i]] = new TrieNode;
-            wordExists = false;
+    for (char c : word) {
+        int index = c - 'a'; // Calculate index based on the character 'a'
+
+        if (index < 0 || index >= numChildren) {
+            cout << "Invalid character found in the word: " << c << endl;
+            return;
         }
-        temp = temp->children[word[i]];
+
+        if (temp->children[index] == nullptr) {
+            temp->children[index] = new TrieNode(); // Create new node if it doesn't exist
+        }
+
+        temp = temp->children[index]; // Move to the next node
     }
 
-    if (wordExists && temp->isEnd) {
-        cout << "Word already exists in the trie: " << word << endl;
-    }
-    else {
-        temp->isEnd = true;
-        currentElements++;
-    }
+    temp->isEnd = true; // Mark the last node as the end of the word
+    currentElements++;  // Update the count of elements in the Trie
 }
+
+
 
 template <typename DataType>
 bool Trie<DataType>::search(DataType key)
@@ -120,14 +134,16 @@ bool Trie<DataType>::search(DataType key)
     cout << "Searching for " << key << endl;
     key = ConvertToLower(key);
 
+
     for (int i = 0; i < key.length(); i++) {
-        if (temp->children[key[i]] == nullptr) {
+        if (temp->children[key[i] - 'a'] == nullptr) {
             cout << "Word not found\n";
             return false;
         }
-        temp = temp->children[key[i]];
+        temp = temp->children[key[i] - 'a'];
     }
-    if (temp->isEnd == true) {
+
+    if (temp->isEnd) {
         cout << "Word found\n";
         return true;
     }
@@ -143,13 +159,13 @@ bool Trie<DataType>::search(DataType key)
 template <typename DataType>
 void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) const
 {
-    if (temp->isEnd == true) {
+     if (temp->isEnd ) {
         cout << currentWord << " ";
     }
 
-    for (int i = 0; i < maxSize; i++) {
+    for (int i = 0; i < numChildren; i++) {
         if (temp->children[i] != nullptr) {
-            DataType nextWord = currentWord + static_cast<char>(i);
+            DataType nextWord = currentWord + static_cast<char>('a' + i); // Get the character based on index
             printSuggestions(temp->children[i], nextWord);
         }
     }
@@ -194,9 +210,9 @@ void Trie<DataType>::displayWords(ostream& out, TrieNode* node, DataType current
         out << currentWord << endl;
     }
 
-    for (int i = 0; i < maxSize; ++i) {
+    for (int i = 0; i < numChildren; ++i) {
         if (node->children[i] != nullptr) {
-            DataType nextWord = currentWord + static_cast<char>(i);
+            DataType nextWord = currentWord + static_cast<char>('a' + i);
             displayWords(out, node->children[i], nextWord);
         }
     }
@@ -215,6 +231,7 @@ Trie<DataType>& Trie<DataType>::operator+(const Trie<DataType>& other)
     delete[] words;
     return *this;
 }
+
 template <typename DataType>
 DataType* Trie<DataType>::getAllWords(int& index) const {
     DataType* words = new DataType[maxElements];
@@ -227,18 +244,20 @@ DataType* Trie<DataType>::getAllWords(int& index) const {
 template <typename DataType>
 void Trie<DataType>::getWord(TrieNode* temp, DataType currentWord, DataType words[], int& index) const
 {
+    if (temp == nullptr) {
+        return;
+    }
     if (temp->isEnd) {
         words[index++] = currentWord;
     }
 
-    for (int i = 0; i < maxSize; i++) {
+    for (int i = 0; i < numChildren; i++) {
         if (temp->children[i] != nullptr) {
-            getWord(temp->children[i], currentWord + static_cast<char>(i), words, index);
+            DataType nextWord = currentWord + static_cast<char>('a' + i);
+            getWord(temp->children[i], nextWord, words, index);
         }
     }
 }
-
-
 
 
 template ostream& operator<<(ostream& out, const Trie<string>& trie);
