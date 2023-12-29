@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+const int numChildren = 26;
 const int maxSize = 256;
 
 template <typename DataType>
@@ -11,14 +12,14 @@ private:
     class TrieNode
     {
     public:
-        TrieNode* children[maxSize];
+        TrieNode* children[numChildren];
         bool isEnd;
 
         // Constructor
         TrieNode()
         {
             isEnd = false;
-            for (int i = 0; i < maxSize; i++)
+            for (int i = 0; i < numChildren; i++)
                 children[i] = nullptr;
         }
     };
@@ -50,4 +51,4 @@ public:
 };
 
 template <typename DataType>
-ostream & operator<<(ostream & out, const Trie<DataType> & trie); 
+ostream& operator<<(ostream& out, const Trie<DataType>& trie);
