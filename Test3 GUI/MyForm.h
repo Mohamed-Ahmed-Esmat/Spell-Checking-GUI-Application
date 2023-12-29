@@ -20,12 +20,14 @@ namespace Test3GUI {
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
+
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
-
-
+			pictureBox1->Visible = false;
+			pictureBox2->Visible = false;
+			errorEmpty->Visible = false;
 			std::ifstream input("D:/Visual Studio 2022 projects/SpellCheckingtest/file.txt");
 			string* words = new string[arraySize];
 			int i = 0;
@@ -57,6 +59,8 @@ namespace Test3GUI {
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
+	private: System::Windows::Forms::Label^ errorEmpty;
+
 
 
 
@@ -82,6 +86,7 @@ namespace Test3GUI {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->errorEmpty = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->SuspendLayout();
@@ -106,7 +111,7 @@ namespace Test3GUI {
 			// 
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(145, 107);
+			this->button1->Location = System::Drawing::Point(139, 98);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(124, 40);
 			this->button1->TabIndex = 2;
@@ -134,6 +139,17 @@ namespace Test3GUI {
 			this->pictureBox2->TabIndex = 4;
 			this->pictureBox2->TabStop = false;
 			// 
+			// errorEmpty
+			// 
+			this->errorEmpty->AutoSize = true;
+			this->errorEmpty->BackColor = System::Drawing::Color::Transparent;
+			this->errorEmpty->ForeColor = System::Drawing::Color::Red;
+			this->errorEmpty->Location = System::Drawing::Point(77, 37);
+			this->errorEmpty->Name = L"errorEmpty";
+			this->errorEmpty->Size = System::Drawing::Size(186, 16);
+			this->errorEmpty->TabIndex = 5;
+			this->errorEmpty->Text = L"Please Enter a Word to Check";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -142,6 +158,7 @@ namespace Test3GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(382, 302);
+			this->Controls->Add(this->errorEmpty);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->button1);
@@ -162,17 +179,23 @@ namespace Test3GUI {
 		std::string keyStd = msclr::interop::marshal_as<std::string>(key);
 
 		bool result = trie.search(keyStd);
+		bool isEmpty = keyStd == "" ? true : false;
 		
-		pictureBox1->Visible = false;
-		pictureBox2->Visible = false;
+		if (isEmpty) {
+			errorEmpty->Visible = true;
+			pictureBox1->Visible = false;
+			pictureBox2->Visible = false;
+		}
 		// Show the appropriate PictureBox based on the result
-		if (result) {
+		else if (result) {
 			pictureBox1->Visible = true;
 			pictureBox2->Visible = false;
+			errorEmpty->Visible = false;
 		}
 		else {
 			pictureBox1->Visible = false;
 			pictureBox2->Visible = true;
+			errorEmpty->Visible = false;
 		}
 	}
 
