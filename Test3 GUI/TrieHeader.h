@@ -35,7 +35,6 @@ private:
 
 public:
     Trie();
-   
     ~Trie();
     DataType* getAllWords(int& index) const;
     Trie(const Trie& other);
@@ -49,7 +48,7 @@ public:
     void deleteWord(DataType word);
     void insert(DataType word);
     bool search(DataType key);
-    void findAllWords(TrieNode * temp, DataType currentWord, int & suggestionsCount, vector<DataType>& suggestions) const;
+    void findAllWords(TrieNode * temp, DataType currentWord, int & suggestionsCount, DataType suggestions[]) const;
     void printSuggestions(TrieNode* temp, DataType currentWord) const;
 
 };

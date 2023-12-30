@@ -160,11 +160,10 @@ bool Trie<DataType>::search(DataType key)
 }
 
 template <typename DataType>
-void Trie<DataType>::findAllWords(TrieNode* temp, DataType currentWord, int& suggestionsCount, vector<DataType>& suggestions) const
+void Trie<DataType>::findAllWords(TrieNode* temp, DataType currentWord, int& suggestionsCount, DataType suggestions[]) const
 {
     if (temp->isEnd == true) {
-        suggestions.push_back(currentWord + " " + to_string(temp->frequency));
-        suggestionsCount++;
+        suggestions[suggestionsCount++] = currentWord + " " + to_string(temp->frequency);
     }
 
     for (int i = 0; i < 26; i++) {
@@ -178,19 +177,20 @@ void Trie<DataType>::findAllWords(TrieNode* temp, DataType currentWord, int& sug
 template <typename DataType>
 void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) const
 {
-    vector<DataType> suggestions;
+    const int maxSuggestions = 10000;
+    DataType suggestions[maxSuggestions];
     int suggestionsCount = 0;
     findAllWords(temp, currentWord, suggestionsCount, suggestions);
-    sort(suggestions.begin(), suggestions.end(), [](const DataType& a, const DataType& b) {
+    sort(suggestions, suggestions + suggestionsCount, [](const DataType& a, const DataType& b) {
         // Assuming suggestions are in the format "word frequency"
         return stoi(a.substr(a.find_last_of(' ') + 1)) > stoi(b.substr(b.find_last_of(' ') + 1));
     });
-    vector<DataType> top3words;
+    DataType top3words[3];
     for (int i = 0; i < min(3, suggestionsCount); i++) {
         int lastSpacePos = suggestions[i].find_last_of(' ');
         DataType wordPart = suggestions[i].substr(0, lastSpacePos);
         cout << wordPart << " ";
-        top3words.push_back(wordPart);
+        top3words[i]=wordPart;
     }
 }
 
