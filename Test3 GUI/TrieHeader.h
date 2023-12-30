@@ -27,7 +27,7 @@ private:
     };
 
     TrieNode* root;
-    
+
     int currentElements;
     void getWord(TrieNode* temp, DataType currentWord, DataType words[], int& index) const;
     DataType ConvertToLower(const DataType& str);
@@ -44,10 +44,10 @@ public:
     void displayAllWords(ostream& out) const;
     void copyNodes(TrieNode* destination, TrieNode* source);
     void deleteNode(TrieNode* node);
-    void deleteWord(DataType word);
-    void insert(DataType word);
+    bool deleteWord(DataType word);
+    bool insert(DataType word);
     bool search(DataType key);
-    void findAllWords(TrieNode * temp, DataType currentWord, int & suggestionsCount, DataType suggestions[]) const;
+    void findAllWords(TrieNode* temp, DataType currentWord, int& suggestionsCount, DataType suggestions[]) const;
     void printSuggestions(TrieNode* temp, DataType currentWord, DataType top3words[]) const;
 
 };
