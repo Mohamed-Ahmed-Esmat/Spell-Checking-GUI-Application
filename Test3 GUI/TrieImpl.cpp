@@ -187,7 +187,10 @@ void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) cons
     });
     vector<DataType> top3words;
     for (int i = 0; i < min(3, suggestionsCount); i++) {
-        cout << suggestions[i] << " ";
+        int lastSpacePos = suggestions[i].find_last_of(' ');
+        DataType wordPart = suggestions[i].substr(0, lastSpacePos);
+        cout << wordPart << " ";
+        top3words.push_back(wordPart);
     }
 }
 
