@@ -1,9 +1,10 @@
 #include <iostream>
+#include <string>
 #include "TrieHeader.h"
 using namespace std;
 
 template <typename DataType>
-Trie<DataType>::Trie() :  currentElements(0) {
+Trie<DataType>::Trie() : currentElements(0) {
     root = new TrieNode();
 }
 
@@ -61,17 +62,17 @@ bool Trie<DataType>::isEmpty() const {
 
 
 template <typename DataType>
-void Trie<DataType>::deleteWord(DataType word) {
+bool Trie<DataType>::deleteWord(DataType word) {
 
     TrieNode* temp = root;
     if (isEmpty()) {
         cout << "Trie is empty\n";
-        return;
+        return false;
     }
 
     if (!search(word)) {
         cout << "Word not available\n";
-        return;
+        return false;
     }
 
     cout << "Delete " << word << endl;
@@ -81,22 +82,22 @@ void Trie<DataType>::deleteWord(DataType word) {
 
         if (temp->children[index] == nullptr) {
             cout << "Word not found in the Trie\n";
-            return;
+            return false;
         }
         temp = temp->children[index]; // Move to the next node
     }
 
     temp->isEnd = false; // Mark the last node as not the end of the word
-    temp->frequency=0;
+    temp->frequency = 0;
     currentElements--;   // Decrement the count of elements in the Trie
-
+    return true;
 }
 
 template <typename DataType>
-void Trie<DataType>::insert(DataType word) {
+bool Trie<DataType>::insert(DataType word) {
     if (word.empty()) {
         cout << "Empty word cannot be inserted into the Trie\n";
-        return;
+        return false;
     }
 
     word = ConvertToLower(word);
@@ -108,7 +109,7 @@ void Trie<DataType>::insert(DataType word) {
 
         if (index < 0 || index >= numChildren) {
             cout << "Invalid character found in the word: " << c << endl;
-            return;
+            return false;
         }
 
         if (temp->children[index] == nullptr) {
@@ -121,11 +122,12 @@ void Trie<DataType>::insert(DataType word) {
     {
         temp->frequency++;
     }
-    else{
+    else {
         temp->isEnd = true; // Mark the last node as the end of the word
         temp->frequency++;
         currentElements++;  // Update the count of elements in the Trie
     }
+    return true;
 }
 
 
@@ -185,11 +187,11 @@ void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord, Data
     sort(suggestions, suggestions + suggestionsCount, [](const DataType& a, const DataType& b) {
         // Assuming suggestions are in the format "word frequency"
         return stoi(a.substr(a.find_last_of(' ') + 1)) > stoi(b.substr(b.find_last_of(' ') + 1));
-    });
+        });
     for (int i = 0; i < min(3, suggestionsCount); i++) {
         int lastSpacePos = suggestions[i].find_last_of(' ');
         DataType wordPart = suggestions[i].substr(0, lastSpacePos);
-        top3words[i]=wordPart;
+        top3words[i] = wordPart;
     }
 }
 
