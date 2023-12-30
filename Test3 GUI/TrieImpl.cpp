@@ -191,7 +191,14 @@ void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord, Data
 
 template <typename DataType>
 void Trie<DataType>::printSuggestions1(DataType currentWord, DataType top3words[]) {
-    printSuggestions(root, currentWord, top3words);
+    TrieNode* temp = root;
+    currentWord = ConvertToLower(currentWord);
+
+    for (int i = 0; i < currentWord.length(); i++) {
+        temp = temp->children[currentWord[i] - 'a'];
+    }
+
+    printSuggestions(temp, currentWord, top3words);
 }
 
 template <typename DataType>
