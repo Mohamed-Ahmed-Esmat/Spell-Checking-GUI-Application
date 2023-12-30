@@ -1,4 +1,11 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Test3 GUI.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  MyForm.cpp
+  TrieImpl.cpp
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\Test3 GUI\TrieImpl.cpp(192,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\Test3 GUI\TrieImpl.cpp(183,1): message : while compiling class template member function 'void Trie<std::string>::printSuggestions(Trie<std::string>::TrieNode *,DataType,int &,DataType []) const'
+          with
+          [
+              DataType=std::string
+          ]
+D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\Test3 GUI\TrieImpl.cpp(303,28): message : see reference to class template instantiation 'Trie<std::string>' being compiled
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Test3 GUI.vcxproj -> D:\Visual Studio 2022 projects\SpellChecking\Spell-Checking-GUI-Application\x64\Debug\SpellChecking.exe

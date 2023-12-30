@@ -8,7 +8,8 @@
 namespace Test3GUI {
 	const int arraySize = 25000;
 	Trie<string> trie;
-	
+	string suggestions[3];
+	string* words = new string[arraySize];
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -33,7 +34,6 @@ namespace Test3GUI {
 			suggest2->Text = msclr::interop::marshal_as<String^>("");
 			suggest3->Text = msclr::interop::marshal_as<String^>("");
 			std::ifstream input("D:/Visual Studio 2022 projects/SpellCheckingtest/file.txt");
-			string* words = new string[arraySize];
 			int i = 0;
 			string element;
 
@@ -115,9 +115,11 @@ namespace Test3GUI {
 			// textBox1
 			// 
 			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
-			this->textBox1->Location = System::Drawing::Point(174, 83);
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 22.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBox1->Location = System::Drawing::Point(307, 109);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(165, 22);
+			this->textBox1->Size = System::Drawing::Size(298, 49);
 			this->textBox1->TabIndex = 0;
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
@@ -134,12 +136,11 @@ namespace Test3GUI {
 			// 
 			this->button1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->button1->AutoSize = true;
-			this->button1->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(208, 144);
+			this->button1->Location = System::Drawing::Point(391, 198);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(96, 39);
+			this->button1->Size = System::Drawing::Size(130, 70);
 			this->button1->TabIndex = 2;
 			this->button1->Text = L"Check";
 			this->button1->UseVisualStyleBackColor = true;
@@ -150,7 +151,7 @@ namespace Test3GUI {
 			this->pictureBox1->Anchor = System::Windows::Forms::AnchorStyles::Right;
 			this->pictureBox1->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(130, 77);
+			this->pictureBox1->Location = System::Drawing::Point(263, 116);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(38, 34);
 			this->pictureBox1->TabIndex = 3;
@@ -161,7 +162,7 @@ namespace Test3GUI {
 			this->pictureBox2->Anchor = System::Windows::Forms::AnchorStyles::Left;
 			this->pictureBox2->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
-			this->pictureBox2->Location = System::Drawing::Point(345, 77);
+			this->pictureBox2->Location = System::Drawing::Point(611, 116);
 			this->pictureBox2->Name = L"pictureBox2";
 			this->pictureBox2->Size = System::Drawing::Size(38, 34);
 			this->pictureBox2->TabIndex = 4;
@@ -172,14 +173,14 @@ namespace Test3GUI {
 			this->errorEmpty->Anchor = System::Windows::Forms::AnchorStyles::Bottom;
 			this->errorEmpty->AutoSize = true;
 			this->errorEmpty->BackColor = System::Drawing::Color::Transparent;
-			this->errorEmpty->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->errorEmpty->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->errorEmpty->ForeColor = System::Drawing::Color::DarkRed;
-			this->errorEmpty->Location = System::Drawing::Point(187, 29);
+			this->errorEmpty->Location = System::Drawing::Point(329, 69);
 			this->errorEmpty->Name = L"errorEmpty";
-			this->errorEmpty->Size = System::Drawing::Size(139, 40);
+			this->errorEmpty->Size = System::Drawing::Size(253, 29);
 			this->errorEmpty->TabIndex = 5;
-			this->errorEmpty->Text = L"Please Enter a Word to Check";
+			this->errorEmpty->Text = L"Please Enter a Word";
 			this->errorEmpty->Click += gcnew System::EventHandler(this, &MyForm::errorEmpty_Click);
 			// 
 			// tableLayoutPanel1
@@ -212,9 +213,9 @@ namespace Test3GUI {
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 33.01435F)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 23.92344F)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 43.26241F)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 246)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 351)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel1->Size = System::Drawing::Size(515, 456);
+			this->tableLayoutPanel1->Size = System::Drawing::Size(912, 650);
 			this->tableLayoutPanel1->TabIndex = 6;
 			// 
 			// suggest1
@@ -223,7 +224,7 @@ namespace Test3GUI {
 			this->suggest1->AutoSize = true;
 			this->suggest1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->suggest1->Location = System::Drawing::Point(36, 209);
+			this->suggest1->Location = System::Drawing::Point(103, 298);
 			this->suggest1->Name = L"suggest1";
 			this->suggest1->Size = System::Drawing::Size(98, 32);
 			this->suggest1->TabIndex = 6;
@@ -235,7 +236,7 @@ namespace Test3GUI {
 			this->suggest2->AutoSize = true;
 			this->suggest2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->suggest2->Location = System::Drawing::Point(207, 209);
+			this->suggest2->Location = System::Drawing::Point(407, 298);
 			this->suggest2->Name = L"suggest2";
 			this->suggest2->Size = System::Drawing::Size(98, 32);
 			this->suggest2->TabIndex = 7;
@@ -247,7 +248,7 @@ namespace Test3GUI {
 			this->suggest3->AutoSize = true;
 			this->suggest3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->suggest3->Location = System::Drawing::Point(379, 209);
+			this->suggest3->Location = System::Drawing::Point(711, 298);
 			this->suggest3->Name = L"suggest3";
 			this->suggest3->Size = System::Drawing::Size(98, 32);
 			this->suggest3->TabIndex = 8;
@@ -258,9 +259,9 @@ namespace Test3GUI {
 			this->Insert->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->Insert->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->Insert->Location = System::Drawing::Point(37, 144);
+			this->Insert->Location = System::Drawing::Point(87, 198);
 			this->Insert->Name = L"Insert";
-			this->Insert->Size = System::Drawing::Size(96, 39);
+			this->Insert->Size = System::Drawing::Size(130, 70);
 			this->Insert->TabIndex = 9;
 			this->Insert->Text = L"Insert";
 			this->Insert->UseVisualStyleBackColor = true;
@@ -272,9 +273,9 @@ namespace Test3GUI {
 			this->Delete->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->Delete->ForeColor = System::Drawing::Color::Red;
-			this->Delete->Location = System::Drawing::Point(373, 144);
+			this->Delete->Location = System::Drawing::Point(695, 198);
 			this->Delete->Name = L"Delete";
-			this->Delete->Size = System::Drawing::Size(111, 39);
+			this->Delete->Size = System::Drawing::Size(130, 70);
 			this->Delete->TabIndex = 10;
 			this->Delete->Text = L"Delete";
 			this->Delete->UseVisualStyleBackColor = true;
@@ -282,10 +283,11 @@ namespace Test3GUI {
 			// 
 			// updateDictionbutton
 			// 
+			this->updateDictionbutton->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->updateDictionbutton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"updateDictionbutton.Image")));
-			this->updateDictionbutton->Location = System::Drawing::Point(3, 3);
+			this->updateDictionbutton->Location = System::Drawing::Point(120, 23);
 			this->updateDictionbutton->Name = L"updateDictionbutton";
-			this->updateDictionbutton->Size = System::Drawing::Size(49, 38);
+			this->updateDictionbutton->Size = System::Drawing::Size(63, 51);
 			this->updateDictionbutton->TabIndex = 11;
 			this->updateDictionbutton->TabStop = false;
 			this->updateDictionbutton->Click += gcnew System::EventHandler(this, &MyForm::updateDictionbutton_Click);
@@ -297,11 +299,11 @@ namespace Test3GUI {
 			this->BackColor = System::Drawing::SystemColors::HotTrack;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(517, 461);
+			this->ClientSize = System::Drawing::Size(914, 655);
 			this->Controls->Add(this->tableLayoutPanel1);
 			this->Controls->Add(this->label1);
 			this->DoubleBuffered = true;
-			this->MinimumSize = System::Drawing::Size(535, 508);
+			this->MinimumSize = System::Drawing::Size(932, 702);
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
 			this->Text = L"MyForm";
@@ -316,7 +318,10 @@ namespace Test3GUI {
 		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		string suggestions [3];
+		suggest1->Text = msclr::interop::marshal_as<String^>("");
+		suggest2->Text = msclr::interop::marshal_as<String^>("");
+		suggest3->Text = msclr::interop::marshal_as<String^>("");
+		
 		System::String^ key = textBox1->Text;
 		std::string keyStd = msclr::interop::marshal_as<std::string>(key);
 		
@@ -325,6 +330,7 @@ namespace Test3GUI {
 		
 		if (isEmpty) {
 			errorEmpty->Visible = true;
+			errorEmpty->Text = msclr::interop::marshal_as<String^>("Please Enter a Word");
 			pictureBox1->Visible = false;
 			pictureBox2->Visible = false;
 			suggest1->Text = msclr::interop::marshal_as<String^>("");
@@ -335,6 +341,7 @@ namespace Test3GUI {
 			pictureBox1->Visible = true;
 			pictureBox2->Visible = false;
 			errorEmpty->Visible = false;
+			cout<< "Search result for " << keyStd << " is " << result << endl;
 			suggest1->Text = msclr::interop::marshal_as<String^>("");
 			suggest2->Text = msclr::interop::marshal_as<String^>("");
 			suggest3->Text = msclr::interop::marshal_as<String^>("");
@@ -343,10 +350,29 @@ namespace Test3GUI {
 			pictureBox1->Visible = false;
 			pictureBox2->Visible = true;
 			errorEmpty->Visible = false;
-			trie.printSuggestions1(keyStd, suggestions);
-			suggest1->Text = msclr::interop::marshal_as<String^>(suggestions[0]);
-			//suggest2->Text = msclr::interop::marshal_as<String^>(suggestions[1]);
-			//suggest3->Text = msclr::interop::marshal_as<String^>(suggestions[2]);
+			int suggestionsCount = 0;
+			trie.printSuggestions1(keyStd, suggestionsCount , suggestions);
+			if(suggestionsCount == 1)
+			{
+				suggest1->Text = msclr::interop::marshal_as<String^>(suggestions[0]);
+			}
+			else if (suggestionsCount == 2) {
+				suggest1->Text = msclr::interop::marshal_as<String^>(suggestions[0]);
+				suggest2->Text = msclr::interop::marshal_as<String^>(suggestions[1]);
+			}
+			else if (suggestionsCount >= 3) {
+				suggest1->Text = msclr::interop::marshal_as<String^>(suggestions[0]);
+				suggest2->Text = msclr::interop::marshal_as<String^>(suggestions[1]);
+				suggest3->Text = msclr::interop::marshal_as<String^>(suggestions[2]);
+			}
+			else {
+				suggest1->Text = msclr::interop::marshal_as<String^>("");
+				suggest2->Text = msclr::interop::marshal_as<String^>("");
+				suggest3->Text = msclr::interop::marshal_as<String^>("");
+				errorEmpty->Visible = true;
+				errorEmpty->Text = msclr::interop::marshal_as<String^>("No Suggestions");
+			}
+			
 		}
 	}
 
@@ -372,7 +398,7 @@ if (deleteSuccess) {
 			pictureBox1->Visible = false;
 			pictureBox2->Visible = true;
 			errorEmpty->Visible = true;
-			errorEmpty->Text = msclr::interop::marshal_as<String^>("Word not deleted");
+			errorEmpty->Text = msclr::interop::marshal_as<String^>("Word does not exist");
 		}
 		pictureBox1->Visible = false;
 		pictureBox2->Visible = false;
@@ -382,6 +408,7 @@ if (deleteSuccess) {
 	}
 	else {
 		errorEmpty->Visible = true;
+		errorEmpty->Text = msclr::interop::marshal_as<String^>("Please Enter a Word");
 	}
 }
 private: System::Void Insert_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -410,10 +437,38 @@ private: System::Void Insert_Click(System::Object^ sender, System::EventArgs^ e)
 	}
 	else {
 		errorEmpty->Visible = true;
+		errorEmpty->Text = msclr::interop::marshal_as<String^>("Please Enter a Word");
 	}
 }
 private: System::Void updateDictionbutton_Click(System::Object^ sender, System::EventArgs^ e) {
+	OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
+	openFileDialog->Filter = "Text files|*.txt|All files (*.*)|*.*";
+	openFileDialog->FilterIndex = 1;
+	openFileDialog->RestoreDirectory = true;
 
+	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		String^ filePath = openFileDialog->FileName;
+		//errorEmpty->Text = "Selected File: " + filePath;
+
+		// Convert System::String^ to std::string and update the file path
+		std::string filePathStd = msclr::interop::marshal_as<std::string>(filePath);
+		std::ifstream input(filePathStd);
+
+		// Clear existing words and insert words from the new file
+		int i = 0;
+		string element;
+		while (getline(input, element) && i < arraySize) {
+			words[i++] = element;
+		}
+
+		// Insert words into the Trie
+		trie.clear();  // Clear existing Trie
+		for (int j = 0; j < i; j++) {
+			trie.insert(words[j]);
+		}
+	}
 }
+
 };
 }

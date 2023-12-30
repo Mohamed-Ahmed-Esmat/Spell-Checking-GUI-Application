@@ -56,6 +56,13 @@ void Trie<DataType>::deleteNode(TrieNode* node) {
 }
 
 template <typename DataType>
+void Trie<DataType>::clear() {
+    deleteNode(root);
+    root = new TrieNode();
+    currentElements = 0;
+}
+
+template <typename DataType>
 bool Trie<DataType>::isEmpty() const {
     return currentElements == 0;
 }
@@ -172,11 +179,10 @@ void Trie<DataType>::findAllWords(TrieNode* temp, DataType currentWord, int& sug
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord, DataType top3words[]) const
+void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord, int& suggestionsCount, DataType top3words[]) const
 {
-    const int maxSuggestions = 10000;
-    DataType suggestions[maxSuggestions];
-    int suggestionsCount = 0;
+    int maxSuggestions = 10000;
+    DataType* suggestions = new DataType[maxSuggestions];
     findAllWords(temp, currentWord, suggestionsCount, suggestions);
     sort(suggestions, suggestions + suggestionsCount, [](const DataType& a, const DataType& b) {
         // Assuming suggestions are in the format "word frequency"
@@ -190,15 +196,18 @@ void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord, Data
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions1(DataType currentWord, DataType top3words[]) {
+void Trie<DataType>::printSuggestions1(DataType currentWord, int& suggestionsCount, DataType top3words[]) {
     TrieNode* temp = root;
     currentWord = ConvertToLower(currentWord);
 
     for (int i = 0; i < currentWord.length(); i++) {
+        if (temp->children[currentWord[i] - 'a'] == nullptr) {
+			return;
+		}
         temp = temp->children[currentWord[i] - 'a'];
     }
 
-    printSuggestions(temp, currentWord, top3words);
+    printSuggestions(temp, currentWord, suggestionsCount, top3words);
 }
 
 template <typename DataType>

@@ -44,12 +44,13 @@ public:
     void displayAllWords(ostream& out) const;
     void copyNodes(TrieNode* destination, TrieNode* source);
     void deleteNode(TrieNode* node);
+    void clear();
     bool deleteWord(DataType word);
     bool insert(DataType word);
     bool search(DataType key);
     void findAllWords(TrieNode* temp, DataType currentWord, int& suggestionsCount, DataType suggestions[]) const;
-    void printSuggestions(TrieNode* temp, DataType currentWord, DataType top3words[]) const;
-    void printSuggestions1(DataType currentWord, DataType top3words[]);
+    void printSuggestions(TrieNode* temp, DataType currentWord, int& suggestionsCount, DataType top3words[]) const;
+    void printSuggestions1(DataType currentWord, int& suggestionsCount, DataType top3words[]);
 
 };
 
