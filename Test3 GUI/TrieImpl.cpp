@@ -87,6 +87,7 @@ void Trie<DataType>::deleteWord(DataType word) {
     }
 
     temp->isEnd = false; // Mark the last node as not the end of the word
+    temp->frequency=0;
     currentElements--;   // Decrement the count of elements in the Trie
 
 }
@@ -116,9 +117,15 @@ void Trie<DataType>::insert(DataType word) {
 
         temp = temp->children[index]; // Move to the next node
     }
-
-    temp->isEnd = true; // Mark the last node as the end of the word
-    currentElements++;  // Update the count of elements in the Trie
+    if (temp->isEnd)
+    {
+        temp->frequency++;
+    }
+    else{
+        temp->isEnd = true; // Mark the last node as the end of the word
+        temp->frequency++;
+        currentElements++;  // Update the count of elements in the Trie
+    }
 }
 
 
@@ -153,17 +160,34 @@ bool Trie<DataType>::search(DataType key)
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) const
+void Trie<DataType>::findAllWords(TrieNode* temp, DataType currentWord, int& suggestionsCount, vector<DataType>& suggestions) const
 {
-     if (temp->isEnd ) {
-        cout << currentWord << " ";
+    if (temp->isEnd == true) {
+        suggestions.push_back(currentWord + " " + to_string(temp->frequency));
+        suggestionsCount++;
     }
 
-    for (int i = 0; i < numChildren; i++) {
+    for (int i = 0; i < 26; i++) {
         if (temp->children[i] != nullptr) {
-            DataType nextWord = currentWord + static_cast<char>('a' + i); // Get the character based on index
-            printSuggestions(temp->children[i], nextWord);
+            char c = 'a' + i;
+            findAllWords(temp->children[i], currentWord + c, suggestionsCount, suggestions);
         }
+    }
+}
+
+template <typename DataType>
+void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) const
+{
+    vector<DataType> suggestions;
+    int suggestionsCount = 0;
+    findAllWords(temp, currentWord, suggestionsCount, suggestions);
+    sort(suggestions.begin(), suggestions.end(), [](const DataType& a, const DataType& b) {
+        // Assuming suggestions are in the format "word frequency"
+        return stoi(a.substr(a.find_last_of(' ') + 1)) > stoi(b.substr(b.find_last_of(' ') + 1));
+    });
+    vector<DataType> top3words;
+    for (int i = 0; i < min(3, suggestionsCount); i++) {
+        cout << suggestions[i] << " ";
     }
 }
 

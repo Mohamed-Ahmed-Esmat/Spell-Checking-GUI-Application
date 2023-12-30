@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 const int numChildren = 26;
@@ -13,11 +15,13 @@ private:
     public:
         TrieNode* children[numChildren];
         bool isEnd;
+        int frequency;
 
         // Constructor
         TrieNode()
         {
             isEnd = false;
+            frequency = 0;
             for (int i = 0; i < numChildren; i++)
                 children[i] = nullptr;
         }
@@ -45,6 +49,7 @@ public:
     void deleteWord(DataType word);
     void insert(DataType word);
     bool search(DataType key);
+    void findAllWords(TrieNode * temp, DataType currentWord, int & suggestionsCount, vector<DataType>& suggestions) const;
     void printSuggestions(TrieNode* temp, DataType currentWord) const;
 
 };
