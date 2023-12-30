@@ -149,15 +149,9 @@ bool Trie<DataType>::search(DataType key)
     }
 
     if (temp->isEnd) {
-        cout << "Word found\n";
         return true;
     }
     else {
-        cout << "Word not found\n";
-        cout << "Suggestions: " << endl;
-        DataType top3words[3];
-        printSuggestions(temp, key, top3words);
-        cout << endl;
         return false;
     }
 }
@@ -193,6 +187,11 @@ void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord, Data
         DataType wordPart = suggestions[i].substr(0, lastSpacePos);
         top3words[i] = wordPart;
     }
+}
+
+template <typename DataType>
+void Trie<DataType>::printSuggestions1(DataType currentWord, DataType top3words[]) {
+    printSuggestions(root, currentWord, top3words);
 }
 
 template <typename DataType>
