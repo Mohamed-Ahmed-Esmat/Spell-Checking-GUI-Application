@@ -153,7 +153,8 @@ bool Trie<DataType>::search(DataType key)
     else {
         cout << "Word not found\n";
         cout << "Suggestions: " << endl;
-        printSuggestions(temp, key);
+        DataType top3words[3];
+        printSuggestions(temp, key, top3words);
         cout << endl;
         return false;
     }
@@ -175,7 +176,7 @@ void Trie<DataType>::findAllWords(TrieNode* temp, DataType currentWord, int& sug
 }
 
 template <typename DataType>
-void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) const
+void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord, DataType top3words[]) const
 {
     const int maxSuggestions = 10000;
     DataType suggestions[maxSuggestions];
@@ -185,11 +186,9 @@ void Trie<DataType>::printSuggestions(TrieNode* temp, DataType currentWord) cons
         // Assuming suggestions are in the format "word frequency"
         return stoi(a.substr(a.find_last_of(' ') + 1)) > stoi(b.substr(b.find_last_of(' ') + 1));
     });
-    DataType top3words[3];
     for (int i = 0; i < min(3, suggestionsCount); i++) {
         int lastSpacePos = suggestions[i].find_last_of(' ');
         DataType wordPart = suggestions[i].substr(0, lastSpacePos);
-        cout << wordPart << " ";
         top3words[i]=wordPart;
     }
 }

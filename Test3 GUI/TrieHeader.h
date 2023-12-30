@@ -48,7 +48,7 @@ public:
     void insert(DataType word);
     bool search(DataType key);
     void findAllWords(TrieNode * temp, DataType currentWord, int & suggestionsCount, DataType suggestions[]) const;
-    void printSuggestions(TrieNode* temp, DataType currentWord) const;
+    void printSuggestions(TrieNode* temp, DataType currentWord, DataType top3words[]) const;
 
 };
 
