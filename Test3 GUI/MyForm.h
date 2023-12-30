@@ -154,7 +154,7 @@ namespace Test3GUI {
 			this->errorEmpty->Anchor = System::Windows::Forms::AnchorStyles::Bottom;
 			this->errorEmpty->AutoSize = true;
 			this->errorEmpty->BackColor = System::Drawing::Color::Transparent;
-			this->errorEmpty->ForeColor = System::Drawing::Color::Red;
+			this->errorEmpty->ForeColor = System::Drawing::Color::DarkRed;
 			this->errorEmpty->Location = System::Drawing::Point(182, 19);
 			this->errorEmpty->Name = L"errorEmpty";
 			this->errorEmpty->Size = System::Drawing::Size(148, 32);
@@ -200,6 +200,7 @@ namespace Test3GUI {
 			this->ClientSize = System::Drawing::Size(517, 461);
 			this->Controls->Add(this->tableLayoutPanel1);
 			this->Controls->Add(this->label1);
+			this->DoubleBuffered = true;
 			this->MinimumSize = System::Drawing::Size(535, 508);
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
