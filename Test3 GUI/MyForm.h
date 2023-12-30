@@ -97,7 +97,7 @@ namespace Test3GUI {
 			// textBox1
 			// 
 			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
-			this->textBox1->Location = System::Drawing::Point(174, 101);
+			this->textBox1->Location = System::Drawing::Point(174, 66);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(165, 22);
 			this->textBox1->TabIndex = 0;
@@ -119,7 +119,7 @@ namespace Test3GUI {
 			this->button1->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(208, 222);
+			this->button1->Location = System::Drawing::Point(208, 144);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(96, 39);
 			this->button1->TabIndex = 2;
@@ -132,7 +132,7 @@ namespace Test3GUI {
 			this->pictureBox1->Anchor = System::Windows::Forms::AnchorStyles::Right;
 			this->pictureBox1->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(130, 95);
+			this->pictureBox1->Location = System::Drawing::Point(130, 60);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(38, 34);
 			this->pictureBox1->TabIndex = 3;
@@ -143,7 +143,7 @@ namespace Test3GUI {
 			this->pictureBox2->Anchor = System::Windows::Forms::AnchorStyles::Left;
 			this->pictureBox2->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
-			this->pictureBox2->Location = System::Drawing::Point(345, 95);
+			this->pictureBox2->Location = System::Drawing::Point(345, 60);
 			this->pictureBox2->Name = L"pictureBox2";
 			this->pictureBox2->Size = System::Drawing::Size(38, 34);
 			this->pictureBox2->TabIndex = 4;
@@ -155,7 +155,7 @@ namespace Test3GUI {
 			this->errorEmpty->AutoSize = true;
 			this->errorEmpty->BackColor = System::Drawing::Color::Transparent;
 			this->errorEmpty->ForeColor = System::Drawing::Color::DarkRed;
-			this->errorEmpty->Location = System::Drawing::Point(182, 19);
+			this->errorEmpty->Location = System::Drawing::Point(182, 3);
 			this->errorEmpty->Name = L"errorEmpty";
 			this->errorEmpty->Size = System::Drawing::Size(148, 32);
 			this->errorEmpty->TabIndex = 5;
@@ -178,15 +178,15 @@ namespace Test3GUI {
 			this->tableLayoutPanel1->Controls->Add(this->textBox1, 1, 1);
 			this->tableLayoutPanel1->Controls->Add(this->errorEmpty, 1, 0);
 			this->tableLayoutPanel1->Controls->Add(this->pictureBox1, 0, 1);
-			this->tableLayoutPanel1->Controls->Add(this->button1, 1, 2);
 			this->tableLayoutPanel1->Controls->Add(this->pictureBox2, 2, 1);
+			this->tableLayoutPanel1->Controls->Add(this->button1, 1, 2);
 			this->tableLayoutPanel1->Location = System::Drawing::Point(1, 2);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			this->tableLayoutPanel1->RowCount = 4;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 16.66667F)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 39.69298F)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 43.37363F)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 145)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 40.07092F)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 43.26241F)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 246)));
 			this->tableLayoutPanel1->Size = System::Drawing::Size(515, 456);
 			this->tableLayoutPanel1->TabIndex = 6;
 			// 
