@@ -146,13 +146,20 @@ bool Trie<DataType>::search(DataType key)
     cout << "Searching for " << key << endl;
     key = ConvertToLower(key);
 
-
     for (int i = 0; i < key.length(); i++) {
-        if (temp->children[key[i] - 'a'] == nullptr) {
+        char currentChar = key[i];
+
+        // Check if the character is a lowercase alphabet
+        if (!(currentChar >= 'a' && currentChar <= 'z')) {
+            cout << "Invalid character found: " << currentChar << endl;
+            return false;
+        }
+
+        if (temp->children[currentChar - 'a'] == nullptr) {
             cout << "Word not found\n";
             return false;
         }
-        temp = temp->children[key[i] - 'a'];
+        temp = temp->children[currentChar - 'a'];
     }
 
     if (temp->isEnd) {
@@ -162,6 +169,7 @@ bool Trie<DataType>::search(DataType key)
         return false;
     }
 }
+
 
 template <typename DataType>
 void Trie<DataType>::findAllWords(TrieNode* temp, DataType currentWord, int& suggestionsCount, DataType suggestions[]) const
@@ -201,14 +209,23 @@ void Trie<DataType>::printSuggestions1(DataType currentWord, int& suggestionsCou
     currentWord = ConvertToLower(currentWord);
 
     for (int i = 0; i < currentWord.length(); i++) {
-        if (temp->children[currentWord[i] - 'a'] == nullptr) {
-			return;
-		}
-        temp = temp->children[currentWord[i] - 'a'];
+        char currentChar = currentWord[i];
+
+        // Check if the character is a lowercase alphabet
+        if (!(currentChar >= 'a' && currentChar <= 'z')) {
+            cout << "Invalid character found: " << currentChar << endl;
+            return;
+        }
+
+        if (temp->children[currentChar - 'a'] == nullptr) {
+            return;
+        }
+        temp = temp->children[currentChar - 'a'];
     }
 
     printSuggestions(temp, currentWord, suggestionsCount, top3words);
 }
+
 
 template <typename DataType>
 DataType Trie<DataType>::ConvertToLower(const DataType& str)

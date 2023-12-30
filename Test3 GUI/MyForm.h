@@ -370,7 +370,7 @@ namespace Test3GUI {
 				suggest2->Text = msclr::interop::marshal_as<String^>("");
 				suggest3->Text = msclr::interop::marshal_as<String^>("");
 				errorEmpty->Visible = true;
-				errorEmpty->Text = msclr::interop::marshal_as<String^>("No Suggestions");
+				errorEmpty->Text = msclr::interop::marshal_as<String^>("Invalid Input");
 			}
 			
 		}
